@@ -1,5 +1,6 @@
-package android.com.aiface;
+package android.com.aiface.ui.activity;
 
+import android.com.aiface.R;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
