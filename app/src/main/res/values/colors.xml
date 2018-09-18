@@ -5,4 +5,10 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorRed">#ff0000</color>
+
+    <!--bottom item selected/normal-->
+    <color name="tab_tv_selected">#45c01a</color>
+    <color name="tab_tv_normal">#999999</color>
+
+    <color name="line">#D2D2D2</color>
 </resources>

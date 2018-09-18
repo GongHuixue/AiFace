@@ -37,6 +37,4 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     public abstract void initView();
 
     public abstract void initData();
-
-
 }

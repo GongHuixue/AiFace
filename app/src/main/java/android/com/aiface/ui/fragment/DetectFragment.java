@@ -1,4 +1,67 @@
 package android.com.aiface.ui.fragment;
 
-public class DetectFragment {
+import android.com.aiface.R;
+import android.com.aiface.ui.base.BaseFragment;
+import android.com.aiface.ui.presenter.DetectPresenter;
+import android.com.aiface.ui.view.IDetectView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class DetectFragment extends BaseFragment<IDetectView, DetectPresenter> implements IDetectView{
+    private TextView mTvDescription;
+    private LinearLayout mMeetingll, mAttendancell, mHomell, mGatell;
+
+    @Override
+    protected DetectPresenter createPresenter() {
+        return null;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.collect_or_detect_view;
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void initView(View view) {
+        TextView mTvMeeting, mTvAttendance, mTvHome, mTvGate;
+        ImageView mIvMeeting, mIvAttendance, mIvHome, mIvGate;
+        mTvDescription = (TextView)view.findViewById(R.id.tv_description);
+        mTvDescription.setText(R.string.detect_title);
+
+        mMeetingll = (LinearLayout)view.findViewById(R.id.it_meeting);
+        mIvMeeting = (ImageView)mMeetingll.findViewById(R.id.iv_image);
+        mTvMeeting = (TextView)mMeetingll.findViewById(R.id.tv_textview);
+        mTvMeeting.setText(R.string.collect_detect_meeting);
+        mIvMeeting.setImageResource(R.mipmap.meeting);
+
+        mAttendancell = (LinearLayout)view.findViewById(R.id.it_attendance);
+        mIvAttendance = (ImageView)mAttendancell.findViewById(R.id.iv_image);
+        mTvAttendance = (TextView)mAttendancell.findViewById(R.id.tv_textview);
+        mTvAttendance.setText(R.string.collect_detect_attendance);
+        mIvAttendance.setImageResource(R.mipmap.attendance);
+
+        mHomell = (LinearLayout)view.findViewById(R.id.it_home);
+        mIvHome = (ImageView)mHomell.findViewById(R.id.iv_image);
+        mTvHome = (TextView)mHomell.findViewById(R.id.tv_textview);
+        mTvHome.setText(R.string.collect_detect_home);
+        mIvHome.setImageResource(R.mipmap.home);
+
+        mGatell = (LinearLayout)view.findViewById(R.id.it_gate);
+        mIvGate = (ImageView)mGatell.findViewById(R.id.iv_image);
+        mTvGate = (TextView)mGatell.findViewById(R.id.tv_textview);
+        mTvGate.setText(R.string.collect_detect_gate);
+        mIvGate.setImageResource(R.mipmap.gate);
+    }
+
+    @Override
+    public void initDetectView() {
+
+    }
 }

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:layout_margin="20dp">
+    android:layout_margin="10dp">
 
 
     <TextView
@@ -13,13 +13,14 @@
         android:layout_margin="10dp"
         android:layout_alignParentTop="true"
         android:gravity="center"
+        android:textSize="13pt"
         android:text="description"/>
 
     <include android:id="@+id/it_meeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        layout="@layout/image_textview"
+        layout="@layout/image_textview_ll"
         android:layout_below="@+id/tv_description"
         android:layout_alignParentLeft="true"/>
 
@@ -27,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        layout="@layout/image_textview"
+        layout="@layout/image_textview_ll"
         android:layout_below="@+id/tv_description"
         android:layout_alignParentRight="true"/>
 
@@ -36,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        layout="@layout/image_textview"
+        layout="@layout/image_textview_ll"
         android:layout_below="@+id/it_meeting"
         android:layout_alignParentLeft="true"/>
 
@@ -44,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        layout="@layout/image_textview"
+        layout="@layout/image_textview_ll"
         android:layout_below="@+id/it_attendance"
         android:layout_alignParentRight="true"/>
 </RelativeLayout>
