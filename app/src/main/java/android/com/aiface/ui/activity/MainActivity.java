@@ -1,6 +1,7 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.settings.AiFaceEnum.*;
 import android.com.aiface.ui.adapter.CommonFragmentPagerAdapter;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.base.BaseFragment;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity<IMainView, MainPresenter> implements ViewPager.OnPageChangeListener, IMainView {
+public class MainActivity extends BaseActivity<IMainView, MainPresenter> implements IMainView {
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private ViewPager mViewPager;
@@ -39,6 +40,9 @@ public class MainActivity extends BaseActivity<IMainView, MainPresenter> impleme
 
         mAdapter = new CommonFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
+
+        /*viewpager combined with tablayout*/
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
     }
 
     private void setTabItems(TabLayout tabLayout, LayoutInflater inflater, int[] tabTitles, int[] tabImages) {
@@ -52,6 +56,25 @@ public class MainActivity extends BaseActivity<IMainView, MainPresenter> impleme
                 ivIcon.setImageResource(tabImages[i]);
                 TextView tvTitle = (TextView) view.findViewById(R.id.tv_bottom);
                 tvTitle.setText(tabTitles[i]);
+
+                mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        int position = tab.getPosition();
+                        /*tablayout combined with viewpager*/
+                        mViewPager.setCurrentItem(position);
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+
+                    }
+                });
                 if(i == 0) {
                     tabLayout.addTab(tab, true);
                 }else {
@@ -79,21 +102,5 @@ public class MainActivity extends BaseActivity<IMainView, MainPresenter> impleme
     @Override
     protected MainPresenter createPresenter() {
         return new MainPresenter(this);
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 }

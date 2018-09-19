@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorRed">#ff0000</color>
+    <color name="colorWhite">#ffffff</color>
 
     <!--bottom item selected/normal-->
     <color name="tab_tv_selected">#45c01a</color>

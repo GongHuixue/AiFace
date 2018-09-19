@@ -1,6 +1,7 @@
 package android.com.aiface.ui.fragment;
 
 import android.com.aiface.R;
+import android.com.aiface.ui.activity.MainActivity;
 import android.com.aiface.ui.base.BaseFragment;
 import android.com.aiface.ui.base.BasePresenter;
 import android.com.aiface.ui.presenter.MePresenter;
@@ -11,7 +12,7 @@ public class MeFragment extends BaseFragment<IMeView, MePresenter> implements IM
 
     @Override
     protected MePresenter createPresenter() {
-        return null;
+        return new MePresenter((MainActivity)getActivity());
     }
 
     @Override

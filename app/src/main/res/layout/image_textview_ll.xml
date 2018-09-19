@@ -3,7 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/tab_tv_selected">
+    android:clickable="true"
+    android:background="@drawable/image_text_selector">
 
     <ImageView
         android:id="@+id/iv_image"
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_gravity="center"
+        android:focusable="false"
         />
 
     <TextView

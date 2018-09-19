@@ -1,6 +1,7 @@
 package android.com.aiface.ui.base;
 
 import android.com.aiface.R;
+import android.com.aiface.settings.SettingManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment{
     protected T mPresenter;
+    protected SettingManager mSettingManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         if(mPresenter != null) {
             mPresenter.attachView((V)this);
         }
+        mSettingManager = SettingManager.getSmInstance();
     }
 
     @Nullable

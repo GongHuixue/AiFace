@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:drawable="@drawable/image_text_selected_shape"></item>
+    <item android:drawable="@drawable/image_text_normal_shape"></item>
+</selector>

@@ -14,7 +14,8 @@
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:textSize="13pt"
-        android:text="description"/>
+        android:text="description"
+        android:background="@color/colorWhite"/>
 
     <include android:id="@+id/it_meeting"
         android:layout_width="wrap_content"
@@ -48,4 +49,15 @@
         layout="@layout/image_textview_ll"
         android:layout_below="@+id/it_attendance"
         android:layout_alignParentRight="true"/>
+
+    <Button
+        android:id="@+id/ib_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/it_gate"
+        android:text="开始"
+        android:textSize="13pt"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/button_shape"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

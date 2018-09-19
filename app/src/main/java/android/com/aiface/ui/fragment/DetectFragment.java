@@ -1,6 +1,8 @@
 package android.com.aiface.ui.fragment;
 
 import android.com.aiface.R;
+import android.com.aiface.settings.AiFaceEnum.*;
+import android.com.aiface.ui.activity.MainActivity;
 import android.com.aiface.ui.base.BaseFragment;
 import android.com.aiface.ui.presenter.DetectPresenter;
 import android.com.aiface.ui.view.IDetectView;
@@ -15,7 +17,7 @@ public class DetectFragment extends BaseFragment<IDetectView, DetectPresenter> i
 
     @Override
     protected DetectPresenter createPresenter() {
-        return null;
+        return new DetectPresenter((MainActivity)getActivity());
     }
 
     @Override
@@ -64,4 +66,27 @@ public class DetectFragment extends BaseFragment<IDetectView, DetectPresenter> i
     public void initDetectView() {
 
     }
+
+    private int changeDetectToInt(DetectMode mode) {
+        int mod;
+        switch (mode) {
+            case DETECT_MEETING:
+                mod = 1;
+                break;
+            case DETECT_ATTENDANCE:
+                mod = 2;
+                break;
+            case DETECT_HOME:
+                mod = 3;
+                break;
+            case DETECT_GATE:
+                mod = 4;
+            case DETECT_NONE:
+            default:
+                mod = 0;
+                break;
+        }
+        return mod;
+    }
+
 }

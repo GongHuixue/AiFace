@@ -13,5 +13,5 @@
     <string name="collect_detect_meeting">会议签到</string>
     <string name="collect_detect_attendance">公司考勤</string>
     <string name="collect_detect_home">智能门禁</string>
-    <string name="collect_detect_gate">智能门禁</string>
+    <string name="collect_detect_gate">智能闸机</string>
 </resources>
