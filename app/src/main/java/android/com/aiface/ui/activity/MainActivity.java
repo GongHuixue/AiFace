@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity<IMainView, MainPresenter> impleme
 
         /*viewpager combined with tablayout*/
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+//        mViewPager.setOffscreenPageLimit(3);
     }
 
     private void setTabItems(TabLayout tabLayout, LayoutInflater inflater, int[] tabTitles, int[] tabImages) {

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MeetingRegActivity">
+
+    <include android:id="@+id/top_bar"
+        layout="@layout/top_action_bar"/>
+
+    <include android:id="@+id/te_meeting_name"
+        android:padding="5dp"
+        layout="@layout/text_edittext_ll"/>
+    <include android:id="@+id/te_meeting_time"
+        android:padding="5dp"
+        layout="@layout/text_edittext_ll"/>
+    <include android:id="@+id/te_meeting_addr"
+        android:padding="5dp"
+        layout="@layout/text_edittext_ll"/>
+
+    <View style="@style/Line" />
+
+    <include android:id="@+id/te_participant_name"
+        android:padding="5dp"
+        layout="@layout/text_edittext_ll"/>
+    <include android:id="@+id/te_participant_part"
+        android:padding="5dp"
+        layout="@layout/text_edittext_ll"/>
+
+    <include android:id="@+id/upload_face_rl"
+        layout="@layout/upload_face_image"/>
+
+    <View style="@style/Line" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/button_shape"
+        android:gravity="center"/>
+
+</LinearLayout>

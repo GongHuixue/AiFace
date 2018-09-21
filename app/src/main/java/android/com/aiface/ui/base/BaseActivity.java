@@ -1,6 +1,7 @@
 package android.com.aiface.ui.base;
 
 import android.com.aiface.settings.SettingManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -40,4 +41,8 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     public abstract void initView();
 
     public abstract void initData();
+
+    public void jumpToActivity(Intent intent) {
+        startActivity(intent);
+    }
 }

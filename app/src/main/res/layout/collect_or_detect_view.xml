@@ -51,7 +51,7 @@
         android:layout_alignParentRight="true"/>
 
     <Button
-        android:id="@+id/ib_start"
+        android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/it_gate"

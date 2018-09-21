@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:id="@+id/face_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_upload_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="8pt"
+            android:text="请上传图片"/>
+
+        <ImageView
+            android:id="@+id/iv_face_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"/>
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/face_upload"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_from_local"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/img_from_local"
+            android:padding="5dp"/>
+
+        <Button
+            android:id="@+id/btn_from_camera"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/img_from_camera"
+            android:padding="5dp"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
