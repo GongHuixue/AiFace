@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/face_upload"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="150dp">
 
         <TextView
             android:id="@+id/tv_upload_image"
@@ -22,7 +22,8 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/circle"/>
     </RelativeLayout>
     
     <LinearLayout

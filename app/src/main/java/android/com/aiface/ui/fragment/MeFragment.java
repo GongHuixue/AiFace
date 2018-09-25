@@ -3,7 +3,6 @@ package android.com.aiface.ui.fragment;
 import android.com.aiface.R;
 import android.com.aiface.ui.activity.MainActivity;
 import android.com.aiface.ui.base.BaseFragment;
-import android.com.aiface.ui.base.BasePresenter;
 import android.com.aiface.ui.presenter.MePresenter;
 import android.com.aiface.ui.view.IMeView;
 import android.view.View;

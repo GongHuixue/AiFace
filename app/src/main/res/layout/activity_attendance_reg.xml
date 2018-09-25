@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
     tools:context=".ui.activity.AttendanceRegActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <include android:id="@+id/top_bar"
+        layout="@layout/top_action_bar"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <include android:id="@+id/te_attendance_part"
+        layout="@layout/text_edittext_ll"
+        android:padding="5dp"/>
+
+    <include android:id="@+id/te_attendance_name"
+        layout="@layout/text_edittext_ll"
+        android:padding="5dp"/>
+
+    <include android:id="@+id/upload_face_rl"
+        layout="@layout/upload_face_image"
+        android:padding="5dp"/>
+
+
+    <View style="@style/Line" />
+
+    <Button
+        android:id="@+id/btn_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/button_shape"
+        android:gravity="center"/>
+
+    </LinearLayout>
+</LinearLayout>

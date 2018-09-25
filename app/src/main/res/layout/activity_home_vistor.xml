@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".ui.activity.HomeVistorActivity">
+
+
+    <ImageView
+        android:id="@+id/face_signed"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/circle"/>
+
+    <View style="@style/Line" />
+
+    <TextView
+        android:id="@+id/tv_host"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="主人信息"/>
+
+    <include android:id="@+id/home_host_name"
+        layout="@layout/text_edittext_ll"
+        android:padding="5dp"/>
+
+    <include android:id="@+id/home_host_addr"
+        layout="@layout/text_edittext_ll"
+        android:padding="5dp"/>
+
+    <View style="@style/Line" />
+
+    <TextView
+        android:id="@+id/tv_gust"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="客人信息"/>
+
+    <include android:id="@+id/home_gust_name"
+        layout="@layout/text_edittext_ll"
+        android:padding="5dp"/>
+
+</LinearLayout>

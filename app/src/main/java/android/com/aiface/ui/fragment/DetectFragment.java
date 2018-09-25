@@ -41,25 +41,25 @@ public class DetectFragment extends BaseFragment<IDetectView, DetectPresenter> i
         mIvMeeting = (ImageView)mMeetingll.findViewById(R.id.iv_image);
         mTvMeeting = (TextView)mMeetingll.findViewById(R.id.tv_textview);
         mTvMeeting.setText(R.string.collect_detect_meeting);
-        mIvMeeting.setImageResource(R.mipmap.meeting);
+        mIvMeeting.setImageResource(R.drawable.meeting);
 
         mAttendancell = (LinearLayout)view.findViewById(R.id.it_attendance);
         mIvAttendance = (ImageView)mAttendancell.findViewById(R.id.iv_image);
         mTvAttendance = (TextView)mAttendancell.findViewById(R.id.tv_textview);
         mTvAttendance.setText(R.string.collect_detect_attendance);
-        mIvAttendance.setImageResource(R.mipmap.attendance);
+        mIvAttendance.setImageResource(R.drawable.attendance);
 
         mHomell = (LinearLayout)view.findViewById(R.id.it_home);
         mIvHome = (ImageView)mHomell.findViewById(R.id.iv_image);
         mTvHome = (TextView)mHomell.findViewById(R.id.tv_textview);
         mTvHome.setText(R.string.collect_detect_home);
-        mIvHome.setImageResource(R.mipmap.home);
+        mIvHome.setImageResource(R.drawable.home);
 
         mGatell = (LinearLayout)view.findViewById(R.id.it_gate);
         mIvGate = (ImageView)mGatell.findViewById(R.id.iv_image);
         mTvGate = (TextView)mGatell.findViewById(R.id.tv_textview);
         mTvGate.setText(R.string.collect_detect_gate);
-        mIvGate.setImageResource(R.mipmap.gate);
+        mIvGate.setImageResource(R.drawable.gate);
     }
 
     @Override

@@ -14,14 +14,30 @@
     <string name="collect_detect_attendance">公司考勤</string>
     <string name="collect_detect_home">智能门禁</string>
     <string name="collect_detect_gate">智能闸机</string>
+    <string name="img_from_local">从本地选择</string>
+    <string name="img_from_camera">从相机拍照</string>
 
     <!--会议注册-->
     <string name="meeting_title">请输入会议信息</string>
     <string name="meeting_name">会议名称</string>
+    <string name="meeting_time">会议时间</string>
     <string name="meeting_addr">会议地址</string>
     <string name="participant_name">参会者姓名</string>
     <string name="participant_part">参会者部门</string>
-    <string name="img_from_local">从本地选择</string>
-    <string name="img_from_camera">从相机拍照</string>
+    <string name="meeting_reg">注册</string>
+
+    <!--考勤注册-->
+    <string name="attendance_title">请输入公司个人信息</string>
+    <string name="attendance_part">部门</string>
+    <string name="attendance_name">姓名</string>
+    <string name="onwork_time">上班时间</string>
+    <string name="offwork_time">下班时间</string>
+
+    <!--家庭注册-->
+    <string name="host_name">主人名字</string>
+    <string name="host_addr">主人房号</string>
+    <string name="gust_name">来访者姓名</string>
+    <string name="gust_relation">与主人关系</string>
+
 
 </resources>

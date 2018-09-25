@@ -22,17 +22,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresenter> implements IMeetingView {
+public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresenter> implements IMeetingView, View.OnClickListener {
     private final static String TAG = MeetingRegActivity.class.getSimpleName();
 
     /*top action bar*/
     private ImageView iv_back;
     private TextView tv_title;
 
-    private LinearLayout mMeetingNamell, mMeetingAddrll, mParticipantName, mParticipantPart;
+    private LinearLayout mMeetingNamell, mMeetingTimell, mMeetingAddrll, mParticipantName, mParticipantPart;
     private RelativeLayout mFaceImageRl;
-    private Button btnLocal, btnCamera, btnReg;
+    private Button btnLocal, btnCamera, btnReg, btn_date, btn_time;
+    private TextView tv_date, tv_time;
     private ImageView faceIv;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_meeting_reg;
@@ -40,25 +42,13 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
 
     @Override
     public void initData() {
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
 
     }
 
     @Override
     public void initView() {
         iv_back = (ImageView) findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        iv_back.setOnClickListener(this);
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_title.setText(R.string.meeting_title);
 
@@ -72,6 +62,17 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
         TextView tvMeetingAddr = (TextView)mMeetingAddrll.findViewById(R.id.tv_name);
         EditText etMeetingAddr = (EditText)mMeetingAddrll.findViewById(R.id.et_name);
         tvMeetingAddr.setText(R.string.meeting_addr);
+
+        mMeetingTimell = (LinearLayout)findViewById(R.id.te_meeting_time);
+        TextView tvMeetingTime = (TextView)mMeetingTimell.findViewById(R.id.tv_name);
+        tvMeetingTime.setText(R.string.meeting_time);
+        btn_date = (Button)mMeetingTimell.findViewById(R.id.btn_date);
+        btn_time = (Button)mMeetingTimell.findViewById(R.id.btn_time);
+        btn_date.setOnClickListener(this);
+        btn_time.setOnClickListener(this);
+        tv_date = (TextView)mMeetingTimell.findViewById(R.id.tv_date);
+        tv_time = (TextView)mMeetingTimell.findViewById(R.id.tv_time);
+
 
         mParticipantName = (LinearLayout)findViewById(R.id.te_participant_name);
         TextView tvParticipantName = (TextView)mParticipantName.findViewById(R.id.tv_name);
@@ -88,6 +89,11 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
         faceIv.setImageResource(R.drawable.face_default);
         btnLocal = (Button)mFaceImageRl.findViewById(R.id.btn_from_local);
         btnCamera = (Button)mFaceImageRl.findViewById(R.id.btn_from_camera);
+        btnLocal.setOnClickListener(this);
+        btnCamera.setOnClickListener(this);
+
+        btnReg = (Button) findViewById(R.id.btn_reg);
+        btnReg.setOnClickListener(this);
     }
 
     @Override
@@ -97,6 +103,29 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
 
     @Override
     public void getMeetingInformation() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+            case R.id.btn_date:
+                break;
+            case R.id.btn_time:
+                break;
+            case R.id.btn_from_local:
+                break;
+            case R.id.btn_from_camera:
+                break;
+            case R.id.btn_reg:
+                break;
+        }
+    }
+
+    private void startLaunchActivity() {
 
     }
 

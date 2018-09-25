@@ -3,6 +3,9 @@ package android.com.aiface.ui.fragment;
 import android.app.Activity;
 import android.com.aiface.R;
 import android.com.aiface.settings.AiFaceEnum.*;
+import android.com.aiface.ui.activity.AttendanceRegActivity;
+import android.com.aiface.ui.activity.GateRegActivity;
+import android.com.aiface.ui.activity.HomeRegActivity;
 import android.com.aiface.ui.activity.MainActivity;
 import android.com.aiface.ui.activity.MeetingRegActivity;
 import android.com.aiface.ui.base.BaseFragment;
@@ -56,37 +59,36 @@ public class CollectFragment extends BaseFragment<ICollectView, CollectPresenter
         mIvMeeting = (ImageView)mMeetingll.findViewById(R.id.iv_image);
         mTvMeeting = (TextView)mMeetingll.findViewById(R.id.tv_textview);
         mTvMeeting.setText(R.string.collect_detect_meeting);
-        mIvMeeting.setImageResource(R.mipmap.meeting);
+        mIvMeeting.setImageResource(R.drawable.meeting);
         mMeetingll.setOnTouchListener(this);
 
         mAttendancell = view.findViewById(R.id.it_attendance);
         mIvAttendance = (ImageView)mAttendancell.findViewById(R.id.iv_image);
         mTvAttendance = (TextView)mAttendancell.findViewById(R.id.tv_textview);
         mTvAttendance.setText(R.string.collect_detect_attendance);
-        mIvAttendance.setImageResource(R.mipmap.attendance);
+        mIvAttendance.setImageResource(R.drawable.attendance);
         mAttendancell.setOnTouchListener(this);
 
         mHomell = view.findViewById(R.id.it_home);
         mIvHome = (ImageView)mHomell.findViewById(R.id.iv_image);
         mTvHome = (TextView)mHomell.findViewById(R.id.tv_textview);
         mTvHome.setText(R.string.collect_detect_home);
-        mIvHome.setImageResource(R.mipmap.home);
+        mIvHome.setImageResource(R.drawable.home);
         mHomell.setOnTouchListener(this);
 
         mGatell = view.findViewById(R.id.it_gate);
         mIvGate = (ImageView)mGatell.findViewById(R.id.iv_image);
         mTvGate = (TextView)mGatell.findViewById(R.id.tv_textview);
         mTvGate.setText(R.string.collect_detect_gate);
-        mIvGate.setImageResource(R.mipmap.gate);
+        mIvGate.setImageResource(R.drawable.gate);
         mGatell.setOnTouchListener(this);
 
         mStart = view.findViewById(R.id.btn_start);
+
         mStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(mContext, MeetingRegActivity.class);
-                mContext.startActivity(intent);
+                startLaunchActivity();
                 Log.d(TAG,"start register");
             }
         });
@@ -134,6 +136,23 @@ public class CollectFragment extends BaseFragment<ICollectView, CollectPresenter
         Log.d(TAG, "onClick select mode = " + mSelectMode);
         changeToCollectMode(mSelectMode);
         updateFocusItem(mSelectMode);
+    }
+
+    private void startLaunchActivity() {
+        switch (mSelectMode) {
+            case 1:
+                ((MainActivity)getActivity()).jumpToActivity(MeetingRegActivity.class);
+                break;
+            case 2:
+                ((MainActivity)getActivity()).jumpToActivity(AttendanceRegActivity.class);
+                break;
+            case 3:
+                ((MainActivity)getActivity()).jumpToActivity(HomeRegActivity.class);
+                break;
+            case 4:
+                ((MainActivity)getActivity()).jumpToActivity(GateRegActivity.class);
+                break;
+        }
     }
 
     private void changeToCollectMode(int mode) {

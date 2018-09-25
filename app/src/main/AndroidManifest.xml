@@ -18,9 +18,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.MeetingRegActivity" />
-        <activity android:name=".ui.activity.AttendanceRegActivity"/>
+        <activity android:name=".ui.activity.AttendanceRegActivity" />
         <activity android:name=".ui.activity.HomeRegActivity" />
-        <activity android:name=".ui.activity.GateRegActivity"></activity>
+        <activity android:name=".ui.activity.GateRegActivity" />
+        <activity android:name=".ui.activity.MeetingSignedActivity" />
+        <activity android:name=".ui.activity.AttendanceQueryActivity" />
+        <activity android:name=".ui.activity.HomeVistorActivity" />
+        <activity android:name=".ui.activity.GateAccessActivity"></activity>
     </application>
 
 </manifest>

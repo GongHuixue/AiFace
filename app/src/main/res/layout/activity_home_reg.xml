@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
     tools:context=".ui.activity.HomeRegActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <include android:id="@+id/top_bar"
+        layout="@layout/top_action_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="主人信息" />
+
+        <include
+            android:id="@+id/home_host_name"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <include
+            android:id="@+id/home_host_addr"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <View style="@style/Line" />
+
+        <TextView
+            android:id="@+id/tv_gust"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="客人信息" />
+
+        <include
+            android:id="@+id/home_gust_name"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <include
+            android:id="@+id/upload_image"
+            layout="@layout/upload_face_image"
+            android:padding="5dp" />
+
+        <View style="@style/Line" />
+
+        <Button
+            android:id="@+id/btn_reg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_shape"
+            android:gravity="center"
+            android:text="注册"
+            android:textColor="@color/colorWhite" />
+
+
+    </LinearLayout>
+</LinearLayout>
