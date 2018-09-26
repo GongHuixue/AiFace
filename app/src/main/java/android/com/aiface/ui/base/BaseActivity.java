@@ -1,5 +1,6 @@
 package android.com.aiface.ui.base;
 
+import android.com.aiface.database.GreenDaoManager;
 import android.com.aiface.settings.SettingManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
     protected T mPresenter;
     protected SettingManager mSettingManager;
+    protected GreenDaoManager greenDaoManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,8 +23,13 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         mSettingManager = SettingManager.getSmInstance();
 
         setContentView(getLayoutId());
+        initCommonPart();
         initView();
         initData();
+    }
+
+    private void initCommonPart() {
+        greenDaoManager = GreenDaoManager.getSingleInstance();
     }
 
     @Override

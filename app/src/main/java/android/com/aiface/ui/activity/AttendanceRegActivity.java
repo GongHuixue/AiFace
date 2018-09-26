@@ -24,7 +24,7 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
 
     private LinearLayout mAttendanceNamell, mAttendancePartll;
     private RelativeLayout mFaceImageRl;
-    private Button btnLocal, btnCamera;
+    private Button btnLocal, btnCamera, btnReg;
     private TextView tvPartName, tvUserName;
     private EditText etPartName, etUserName;
     private ImageView faceImg;
@@ -43,10 +43,12 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
 
         mAttendancePartll = (LinearLayout)findViewById(R.id.te_attendance_part);
         tvPartName = (TextView)mAttendancePartll.findViewById(R.id.tv_name);
+        tvPartName.setText(R.string.attendance_part);
         etPartName = (EditText)mAttendancePartll.findViewById(R.id.et_name);
 
         mAttendanceNamell = (LinearLayout)findViewById(R.id.te_attendance_name);
         tvUserName = (TextView)mAttendanceNamell.findViewById(R.id.tv_name);
+        tvUserName.setText(R.string.attendance_name);
         etUserName = (EditText)mAttendanceNamell.findViewById(R.id.et_name);
 
         mFaceImageRl = (RelativeLayout)findViewById(R.id.upload_face_rl);
@@ -55,6 +57,9 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
         btnLocal.setOnClickListener(this);
         btnCamera.setOnClickListener(this);
         faceImg = (ImageView)mFaceImageRl.findViewById(R.id.iv_face_image);
+
+        btnReg = (Button)findViewById(R.id.btn_reg);
+        btnReg.setOnClickListener(this);
     }
 
     @Override
@@ -71,6 +76,8 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
             case R.id.btn_from_local:
                 break;
             case R.id.btn_from_camera:
+                break;
+            case R.id.btn_start:
                 break;
         }
     }

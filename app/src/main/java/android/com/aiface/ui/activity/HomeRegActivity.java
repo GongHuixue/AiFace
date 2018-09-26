@@ -36,7 +36,7 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
         iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_back.setOnClickListener(this);
         tv_title = (TextView) findViewById(R.id.tv_title);
-        tv_title.setText(R.string.attendance_title);
+        tv_title.setText(R.string.home_title);
 
         mHostNamell = (LinearLayout)findViewById(R.id.home_host_name);
         tvHostName = (TextView)mHostNamell.findViewById(R.id.tv_name);
@@ -45,7 +45,7 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
 
         mHostAddrll = (LinearLayout)findViewById(R.id.home_host_addr);
         tvHostAddr = (TextView)mHostAddrll.findViewById(R.id.tv_name);
-        tvHostName.setText(R.string.host_addr);
+        tvHostAddr.setText(R.string.host_addr);
         etHostAddr = (EditText)mHostAddrll.findViewById(R.id.et_name);
 
         mGustNamell = (LinearLayout)findViewById(R.id.home_gust_name);

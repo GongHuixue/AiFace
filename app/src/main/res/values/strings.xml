@@ -34,10 +34,10 @@
     <string name="offwork_time">下班时间</string>
 
     <!--家庭注册-->
+    <string name="home_title">请输入主客关系</string>
     <string name="host_name">主人名字</string>
     <string name="host_addr">主人房号</string>
     <string name="gust_name">来访者姓名</string>
-    <string name="gust_relation">与主人关系</string>
 
 
 </resources>
