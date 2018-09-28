@@ -2,6 +2,7 @@ package android.com.aiface.ui.base;
 
 import android.com.aiface.database.GreenDaoManager;
 import android.com.aiface.settings.SettingManager;
+import android.com.aiface.utils.ToastMsg;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     protected T mPresenter;
     protected SettingManager mSettingManager;
     protected GreenDaoManager greenDaoManager;
+    protected ToastMsg mToastInstance;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
 
     private void initCommonPart() {
         greenDaoManager = GreenDaoManager.getSingleInstance();
+        mToastInstance = ToastMsg.getToastInstance();
     }
 
     @Override

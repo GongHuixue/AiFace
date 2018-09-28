@@ -25,8 +25,13 @@
 
         <include
             android:id="@+id/te_meeting_time"
-            layout="@layout/date_time_picker_ll"
+            layout="@layout/text_edittext_ll"
             android:padding="5dp" />
+
+        <include
+            android:id="@+id/set_meeting_time"
+            layout="@layout/date_time_picker_ll"
+            android:padding="5dp"/>
 
         <include
             android:id="@+id/te_meeting_addr"

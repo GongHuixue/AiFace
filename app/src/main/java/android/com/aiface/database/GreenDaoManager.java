@@ -2,6 +2,8 @@ package android.com.aiface.database;
 
 import android.com.aiface.AiFaceApplication;
 import android.com.aiface.database.bean.AttendanceFace;
+import android.com.aiface.database.bean.FaceBean;
+import android.com.aiface.database.bean.GateFace;
 import android.com.aiface.database.bean.HomeFace;
 import android.com.aiface.database.bean.MeetingFace;
 import android.com.aiface.greendao.AttendanceFaceDao;
@@ -62,7 +64,7 @@ public class GreenDaoManager {
                 .getMeetingFaceDao()
                 .queryBuilder()
                 .where(MeetingFaceDao.Properties.MeetingName.isNotNull(), MeetingFaceDao.Properties.MeetingTime.isNotNull())
-                .orderAsc(MeetingFaceDao.Properties.MeetingTime)
+                .orderDesc(MeetingFaceDao.Properties.MeetingTime) //must order by desc;
                 .list();
         return meetingFaceList;
     }
@@ -81,6 +83,7 @@ public class GreenDaoManager {
                 .getHomeFaceDao()
                 .queryBuilder()
                 .where(HomeFaceDao.Properties.HostName.isNotNull(), HomeFaceDao.Properties.HomeAddr.isNotNull())
+                .orderDesc(HomeFaceDao.Properties.HomeAddr)
                 .list();
         return homeFaceList;
     }
@@ -89,4 +92,15 @@ public class GreenDaoManager {
 
     }
 
+    public void insertFaceData(FaceBean faceBean) {
+        if(faceBean instanceof MeetingFace) {
+            AiFaceApplication.getDaoSession().getMeetingFaceDao().insertOrReplace((MeetingFace)faceBean);
+        }else if(faceBean instanceof AttendanceFace) {
+            AiFaceApplication.getDaoSession().getAttendanceFaceDao().insertOrReplace((AttendanceFace)faceBean);
+        }else if(faceBean instanceof HomeFace) {
+            AiFaceApplication.getDaoSession().getHomeFaceDao().insertOrReplace((HomeFace)faceBean);
+        }else if(faceBean instanceof GateFace) {
+            AiFaceApplication.getDaoSession().getGateFaceDao().insertOrReplace((GateFace)faceBean);
+        }
+    }
 }

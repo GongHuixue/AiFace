@@ -1,11 +1,13 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.database.bean.AttendanceFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.AttendancePresenter;
 import android.com.aiface.ui.view.IAttendanceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AttendanceRegActivity extends BaseActivity<IAttendanceView, AttendancePresenter> implements IAttendanceView, View.OnClickListener {
     private final static String TAG = AttendanceRegActivity.class.getSimpleName();
@@ -28,6 +33,9 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
     private TextView tvPartName, tvUserName;
     private EditText etPartName, etUserName;
     private ImageView faceImg;
+
+    private AttendanceFace mAttendanceFace = new AttendanceFace();
+    private List<AttendanceFace> mAttendanceFacelist = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -64,7 +72,11 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
 
     @Override
     public void initData() {
+        getAttendanceMember();
 
+        if(mAttendanceFacelist.size() == 0) {
+            mToastInstance.showShortToast("目前没有任何员工信息，请先注册");
+        }
     }
 
     @Override
@@ -77,7 +89,8 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
                 break;
             case R.id.btn_from_camera:
                 break;
-            case R.id.btn_start:
+            case R.id.btn_reg:
+                registerAttendanceInfo();
                 break;
         }
     }
@@ -89,6 +102,16 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
 
     @Override
     public void getAttendanceMember() {
+        mAttendanceFacelist = greenDaoManager.getAttendanceInfo();
+    }
 
+    private void registerAttendanceInfo() {
+        Log.d(TAG, "registerAttendanceInfo: part = " + etPartName.getText().toString() + ", name = " + etUserName.getText().toString());
+        if((etPartName.getText().toString() != null) && (etUserName.getText().toString() != null)) {
+            mAttendanceFace.setAttendanceName(etUserName.getText().toString());
+            mAttendanceFace.setAttendancePart(etPartName.getText().toString());
+            greenDaoManager.insertFaceData(mAttendanceFace);
+            mToastInstance.showShortToast("注册成功");
+        }
     }
 }

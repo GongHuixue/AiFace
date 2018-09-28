@@ -26,7 +26,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property MeetingName = new Property(1, String.class, "meetingName", false, "MEETING_NAME");
-        public final static Property MeetingTime = new Property(2, String.class, "meetingTime", false, "MEETING_TIME");
+        public final static Property MeetingTime = new Property(2, long.class, "meetingTime", false, "MEETING_TIME");
         public final static Property MeetingAddr = new Property(3, String.class, "meetingAddr", false, "MEETING_ADDR");
         public final static Property ParticipantName = new Property(4, String.class, "participantName", false, "PARTICIPANT_NAME");
         public final static Property ParticipantPart = new Property(5, String.class, "participantPart", false, "PARTICIPANT_PART");
@@ -47,7 +47,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"MEETING_FACE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"MEETING_NAME\" TEXT NOT NULL ," + // 1: meetingName
-                "\"MEETING_TIME\" TEXT NOT NULL ," + // 2: meetingTime
+                "\"MEETING_TIME\" INTEGER NOT NULL ," + // 2: meetingTime
                 "\"MEETING_ADDR\" TEXT NOT NULL ," + // 3: meetingAddr
                 "\"PARTICIPANT_NAME\" TEXT NOT NULL ," + // 4: participantName
                 "\"PARTICIPANT_PART\" TEXT NOT NULL );"); // 5: participantPart
@@ -68,7 +68,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getMeetingName());
-        stmt.bindString(3, entity.getMeetingTime());
+        stmt.bindLong(3, entity.getMeetingTime());
         stmt.bindString(4, entity.getMeetingAddr());
         stmt.bindString(5, entity.getParticipantName());
         stmt.bindString(6, entity.getParticipantPart());
@@ -83,7 +83,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getMeetingName());
-        stmt.bindString(3, entity.getMeetingTime());
+        stmt.bindLong(3, entity.getMeetingTime());
         stmt.bindString(4, entity.getMeetingAddr());
         stmt.bindString(5, entity.getParticipantName());
         stmt.bindString(6, entity.getParticipantPart());
@@ -99,7 +99,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         MeetingFace entity = new MeetingFace( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // meetingName
-            cursor.getString(offset + 2), // meetingTime
+            cursor.getLong(offset + 2), // meetingTime
             cursor.getString(offset + 3), // meetingAddr
             cursor.getString(offset + 4), // participantName
             cursor.getString(offset + 5) // participantPart
@@ -111,7 +111,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
     public void readEntity(Cursor cursor, MeetingFace entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setMeetingName(cursor.getString(offset + 1));
-        entity.setMeetingTime(cursor.getString(offset + 2));
+        entity.setMeetingTime(cursor.getLong(offset + 2));
         entity.setMeetingAddr(cursor.getString(offset + 3));
         entity.setParticipantName(cursor.getString(offset + 4));
         entity.setParticipantPart(cursor.getString(offset + 5));

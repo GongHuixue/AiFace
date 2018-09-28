@@ -1,11 +1,13 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.database.bean.HomeFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.HomePresenter;
 import android.com.aiface.ui.view.IHomeView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> implements IHomeView, View.OnClickListener {
     private final static String TAG = HomeRegActivity.class.getSimpleName();
@@ -24,10 +29,13 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
 
     private LinearLayout mHostNamell, mHostAddrll, mGustNamell;
     private RelativeLayout mFaceImageRl;
-    private Button btnLocal, btnCamera;
+    private Button btnLocal, btnCamera, btnReg;
     private TextView tvHostName, tvHostAddr, tvGustName;
     private EditText etHostName, etHostAddr, etGustName;
     private ImageView faceImg;
+
+    private HomeFace mHomeFace = new HomeFace();
+    private List<HomeFace> mHomeFaceList = new ArrayList<>();
 
 
 
@@ -59,11 +67,21 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
         btnLocal.setOnClickListener(this);
         btnCamera.setOnClickListener(this);
         faceImg = (ImageView)mFaceImageRl.findViewById(R.id.iv_face_image);
+
+        btnReg = (Button)findViewById(R.id.btn_reg);
+        btnReg.setOnClickListener(this);
     }
 
     @Override
     public void initData() {
+        getHostInformation();
 
+        if(mHomeFaceList.size() > 0) {
+            mHomeFace = mHomeFaceList.get(0);
+            updateHostInfo();
+        }else {
+            mToastInstance.showShortToast("请先输入主人信息");
+        }
     }
 
     @Override
@@ -81,17 +99,43 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
                 break;
             case R.id.btn_from_camera:
                 break;
+            case R.id.btn_reg:
+                registerGustInfo();
+                break;
 
         }
     }
 
     @Override
     public void getHostInformation() {
-
+        mHomeFaceList = greenDaoManager.getHomeHostInfo();
     }
 
     @Override
     protected HomePresenter createPresenter() {
         return new HomePresenter(this);
+    }
+
+    private void updateHostInfo() {
+        Log.d(TAG, "updateHostInfo, host name = " + etHostName.getText().toString() + ", host addr = " + etHostAddr.getText().toString());
+
+        etHostName.setText(mHomeFace.getHostName());
+        etHostAddr.setText(mHomeFace.getHomeAddr());
+        etHostAddr.setEnabled(false);
+        etHostName.setEnabled(false);
+    }
+
+    private void registerGustInfo() {
+        Log.d(TAG, "registerGustInfo, host name = " + etHostName.getText().toString() + ", host addr = " + etHostAddr.getText().toString() +
+        ", gust name = " + etGustName.getText().toString());
+        if((etHostName.getText().toString() != null) && (etHostAddr.getText().toString() != null) && (etGustName.getText().toString() != null)) {
+            mHomeFace.setHomeAddr(etHostAddr.getText().toString());
+            mHomeFace.setHostName(etHostName.getText().toString());
+            mHomeFace.setGustName(etGustName.getText().toString());
+
+            greenDaoManager.insertFaceData(mHomeFace);
+
+            mToastInstance.showShortToast("注册成功");
+        }
     }
 }
