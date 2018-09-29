@@ -21,18 +21,18 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
+        AttendanceFaceDao.createTable(db, ifNotExists);
+        GateFaceDao.createTable(db, ifNotExists);
         HomeFaceDao.createTable(db, ifNotExists);
         MeetingFaceDao.createTable(db, ifNotExists);
-        GateFaceDao.createTable(db, ifNotExists);
-        AttendanceFaceDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
+        AttendanceFaceDao.dropTable(db, ifExists);
+        GateFaceDao.dropTable(db, ifExists);
         HomeFaceDao.dropTable(db, ifExists);
         MeetingFaceDao.dropTable(db, ifExists);
-        GateFaceDao.dropTable(db, ifExists);
-        AttendanceFaceDao.dropTable(db, ifExists);
     }
 
     /**
@@ -51,10 +51,10 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
+        registerDaoClass(AttendanceFaceDao.class);
+        registerDaoClass(GateFaceDao.class);
         registerDaoClass(HomeFaceDao.class);
         registerDaoClass(MeetingFaceDao.class);
-        registerDaoClass(GateFaceDao.class);
-        registerDaoClass(AttendanceFaceDao.class);
     }
 
     public DaoSession newSession() {
