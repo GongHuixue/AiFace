@@ -32,7 +32,8 @@
         <activity android:name=".ui.activity.MeetingSignedActivity" />
         <activity android:name=".ui.activity.AttendanceQueryActivity" />
         <activity android:name=".ui.activity.HomeVistorActivity" />
-        <activity android:name=".ui.activity.GateAccessActivity"></activity>
+        <activity android:name=".ui.activity.GateAccessActivity" />
+        <activity android:name=".ui.activity.FaceDetectActivity"></activity>
     </application>
 
 </manifest>

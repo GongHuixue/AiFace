@@ -5,7 +5,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "android.com.aiface"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -17,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    
+
     signingConfigs {
         def password = "ghx860716"
         def alias = "aiface"
@@ -63,7 +63,6 @@ dependencies {
     //add okhttp3
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
     //add baidu face sdk
-//    implementation project(path: ':facesdk')
     api project(':facesdk')
 
 
