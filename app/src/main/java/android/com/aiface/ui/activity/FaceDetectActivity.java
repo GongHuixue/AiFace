@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,13 +52,12 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
     private static final int MSG_BEGIN_DETECT = 1002;
     private TextView nameTextView;
     private PreviewView previewView;
-    private View mInitView;
+    private View mMainView;
     private FaceRoundView rectView;
+    private ImageView closeIv;
     private boolean mGoodDetect = false;
     private static final double ANGLE = 15;
-    private ImageView closeIv;
     private boolean mDetectStoped = false;
-    private ImageView mSuccessView;
     private Handler mHandler;
     private String mCurTips;
     private boolean mUploading = false;
@@ -89,7 +89,7 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
 
     @Override
     public void initData() {
-        // init baidu api facetracker;
+        //init baidu api facetracker;
         initFaceTracker();
 
         //get screen width/height
@@ -108,10 +108,18 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
     public void initView() {
         faceDetectManager = new FaceDetectManager(this);
 
-        mInitView = findViewById(R.id.camera_layout);
+        mMainView = (FrameLayout) findViewById(R.id.camera_layout);
         previewView = (PreviewView) findViewById(R.id.preview_view);
-
         rectView = (FaceRoundView) findViewById(R.id.rect_view);
+        nameTextView = (TextView) findViewById(R.id.name_text_view);
+        closeIv = (ImageView) findViewById(R.id.closeIv);
+        closeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         cameraImageSource = new CameraImageSource(this);
         cameraImageSource.setPreviewView(previewView);
 
@@ -140,6 +148,7 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
         // 设置检测裁剪处理器
         faceDetectManager.addPreProcessor(cropProcessor);
 
+        //check camera permission
         cameraImageSource.getCameraControl().setPermissionCallback(new PermissionCallback() {
             @Override
             public boolean onRequestPermission() {
@@ -148,6 +157,7 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
                 return true;
             }
         });
+        cameraImageSource.getCameraControl().setPreviewView(previewView);
 
         rectView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -157,50 +167,14 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
             }
         });
 
-        cameraImageSource.getCameraControl().setPreviewView(previewView);
-
-
+        //set screen orientation
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             previewView.setScaleType(PreviewView.ScaleType.FIT_WIDTH);
         } else {
             previewView.setScaleType(PreviewView.ScaleType.FIT_HEIGHT);
         }
-        int rotation = getWindowManager().getDefaultDisplay().getRotation();
-        cameraImageSource.getCameraControl().setDisplayOrientation(rotation);
-        //   previewView.getTextureView().setScaleX(-1);
-        nameTextView = (TextView) findViewById(R.id.name_text_view);
-        closeIv = (ImageView) findViewById(R.id.closeIv);
-        closeIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mSuccessView = (ImageView) findViewById(R.id.success_image);
-
-        mSuccessView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (mSuccessView.getTag() == null) {
-                    Rect rect = rectView.getFaceRoundRect();
-                    RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) mSuccessView.getLayoutParams();
-                    int w = (int) getResources().getDimension(R.dimen.success_width);
-                    rlp.setMargins(
-                            rect.centerX() - (w / 2),
-                            rect.top - (w / 2),
-                            0,
-                            0);
-                    mSuccessView.setLayoutParams(rlp);
-                    mSuccessView.setTag("setlayout");
-                }
-                mSuccessView.setVisibility(View.GONE);
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    mSuccessView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                } else {
-                    mSuccessView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-            }
-        });
+        
+        cameraImageSource.getCameraControl().setDisplayOrientation(getWindowManager().getDefaultDisplay().getRotation());
     }
 
 
@@ -240,11 +214,11 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
     }
 
     private void visibleView() {
-        mInitView.setVisibility(View.INVISIBLE);
+        mMainView.setVisibility(View.INVISIBLE);
     }
 
     private boolean saveFaceBmp(FaceFilter.TrackedModel model) {
-
+        boolean saved = false;
         final Bitmap face = model.cropFace();
         if (face != null) {
             Log.d("save", "save bmp");
@@ -255,7 +229,7 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
         if (!file.exists()) {
             return false;
         }
-        boolean saved = false;
+
         try {
             byte[] buf = readFile(file);
             if (buf.length > 0) {
@@ -431,7 +405,6 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
     }
 
     private void start() {
-
         Rect dRect = rectView.getFaceRoundRect();
 
         //   RectF newDetectedRect = new RectF(detectedRect);
@@ -465,7 +438,6 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
             RectF newDetectedRect = new RectF(rLeft, rTop, rRight, rBottom);
             cropProcessor.setDetectedRect(newDetectedRect);
         }
-
 
         faceDetectManager.start();
         initWaveview(dRect);
@@ -527,7 +499,7 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mSuccessView.setVisibility(isShow ? View.VISIBLE : View.INVISIBLE);
+//                mSuccessView.setVisibility(isShow ? View.VISIBLE : View.INVISIBLE);
             }
         });
     }

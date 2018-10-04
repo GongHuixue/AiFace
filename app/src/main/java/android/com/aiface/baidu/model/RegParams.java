@@ -3,6 +3,8 @@
  */
 package android.com.aiface.baidu.model;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +14,7 @@ public class RegParams implements RequestParams {
 
     private Map<String, String> params = new HashMap<>();
     private Map<String, File> fileMap = new HashMap<>();
+    private Map<String, Object> group = new HashMap<>();
     private String jsonParams = "";
 
 
@@ -95,6 +98,25 @@ public class RegParams implements RequestParams {
             putParam(key, "true");
         } else {
             putParam(key, "false");
+        }
+    }
+
+    public void setStart(Object startIndex) {
+        putParam("start", startIndex);
+    }
+
+    public void setLength(Object length) {
+        putParam("length", length);
+    }
+
+    public void setGroupName(Object name) {
+        putParam("group_id", name);
+    }
+
+    private void putParam(String key, Object value) {
+        Log.d("putParam", "key = " + key + ",value = " + value);
+        if((value != null) && (key != null)) {
+            group.put(key, value);
         }
     }
 }

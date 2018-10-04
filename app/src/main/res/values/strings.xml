@@ -39,6 +39,10 @@
     <string name="host_addr">主人房号</string>
     <string name="gust_name">来访者姓名</string>
 
+    <!--安检闸机-->
+    <string name="gate_title">请输入个人信息</string>
+    <string name="user_name">姓名</string>
+
     <!--Face Detect-->
     <string name="detect_no_face">未检测到人脸</string>
     <string name="detect_face_in">把脸移入框内</string>

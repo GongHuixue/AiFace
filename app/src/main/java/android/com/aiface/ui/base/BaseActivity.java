@@ -158,4 +158,8 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             }
         }, file, userId, userName);
     }
+
+    public void setFaceGroup(String groupId) {
+        APIService.getInstance().setGroupId(groupId);
+    }
 }

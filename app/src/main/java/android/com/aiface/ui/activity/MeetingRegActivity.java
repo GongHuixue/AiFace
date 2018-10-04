@@ -4,7 +4,12 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.com.aiface.R;
+import android.com.aiface.baidu.APIService;
+import android.com.aiface.baidu.Config;
+import android.com.aiface.baidu.exception.FaceError;
+import android.com.aiface.baidu.model.RegResult;
 import android.com.aiface.baidu.utils.ImageSaveUtil;
+import android.com.aiface.baidu.utils.OnResultListener;
 import android.com.aiface.database.bean.MeetingFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.MeetingPresenter;
@@ -13,6 +18,7 @@ import android.com.aiface.utils.DateTime;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -65,7 +71,7 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
     public void initData() {
 
         getMeetingInformation();
-
+        Log.d(TAG, "meeting list size = " + meetingFaceList.size());
         if (meetingFaceList.size() > 0) {
             mMeetingFace = meetingFaceList.get(0);
 
@@ -76,7 +82,7 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
             updateDateTimeLL(meetingPassed);
 
             if (meetingPassed) {
-                mToastInstance.showLongToast("没有有效的会议，请创建新的会议");
+                mToastInstance.showShortToast("没有有效的会议，请创建新的会议");
                 // need create a new meeting
             } else {
                 updateEtMeetingInfo();
@@ -85,7 +91,7 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
             Log.d(TAG, "Show the latest meeting info");
         } else {
             updateDateTimeLL(true);
-            mToastInstance.showLongToast("没有有效的会议，请创建新的会议");
+            mToastInstance.showShortToast("没有有效的会议，请创建新的会议");
             Log.d(TAG, "No any meeting information");
         }
     }
@@ -175,6 +181,34 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
                 uploadFromCamera();
                 break;
             case R.id.btn_reg:
+                /* test */
+
+                APIService.getInstance().deleteGroup(new OnResultListener<RegResult>() {
+                    @Override
+                    public void onResult(RegResult result) {
+                        Log.d(TAG, "Del Group List = " + result.getJsonRes());
+                    }
+
+                    @Override
+                    public void onError(FaceError error) {
+                        Log.e(TAG, "Del Group List Failed");
+                    }
+                });
+
+                /*APIService.getInstance().getFaceGroupList(new OnResultListener<RegResult>() {
+                    @Override
+                    public void onResult(RegResult result) {
+                        Log.d(TAG, "Get Group List = " + result.getJsonRes());
+                    }
+
+                    @Override
+                    public void onError(FaceError error) {
+                        Log.e(TAG, "Get Group List Failed");
+                    }
+                });*/
+
+                //setFaceGroup(Config.MeetingGroupId);
+
                 getMeetingTime();
                 registerMeetingInfo();
                 registerFaceImage(facePath, etParticipantName.getText().toString().trim());
@@ -185,14 +219,18 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult, requestCode = " + requestCode + ", resultCode = " + resultCode);
         if ((requestCode == REQUEST_CODE_DETECT_FACE) && (resultCode == Activity.RESULT_OK)) {
-            facePath = ImageSaveUtil.loadCameraBitmapPath(this, "face.jpg");
+            facePath = ImageSaveUtil.loadCameraBitmapPath(this, "head_tmp.jpg");
             if (faceBmp != null) {
                 faceBmp.recycle();
             }
-            faceBmp = ImageSaveUtil.loadCameraBitmap(this, facePath);
+            Log.d(TAG, "facePath = " + facePath);
+            faceBmp = ImageSaveUtil.loadBitmapFromPath(this, facePath);
             if (faceBmp != null) {
                 faceIv.setImageBitmap(faceBmp);
+            }else {
+                Log.e(TAG, "Bitmap is null");
             }
         } else if ((requestCode == REQUEST_CODE_PICK_IMAGE) && (resultCode == Activity.RESULT_OK)) {
             Uri uri = data.getData();
@@ -215,10 +253,6 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
         if(faceBmp != null) {
             faceBmp.recycle();
         }
-    }
-
-    private void startLaunchActivity() {
-
     }
 
     private long getMeetingTime() {
@@ -293,11 +327,13 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
     }
 
     private void registerMeetingInfo() {
-        Log.d(TAG, "registerMeetingInfo: name = " + etMeetingName.getText().toString() +
-                ", time = " + datetime.toString() + ", addr = " + etMeetingAddr.getText().toString() +
-                ", part = " + etParticipantPart.getText().toString() + ", username = " + etParticipantName.getText().toString());
-        if ((etMeetingName != null) && (etMeetingTime != null) && (etMeetingAddr != null) &&
-                (etParticipantPart != null) && (etParticipantName != null)) {
+        if((!(TextUtils.isEmpty(etMeetingName.getText()))) && (!(TextUtils.isEmpty(etMeetingAddr.getText()))) &&
+                (!(TextUtils.isEmpty(etMeetingTime.getText()))) && (!(TextUtils.isEmpty(etParticipantName.getText()))) &&
+                (!(TextUtils.isEmpty(etParticipantPart.getText())))) {
+            Log.d(TAG, "registerMeetingInfo: name = " + etMeetingName.getText().toString() +
+                    ", time = " + datetime.toString() + ", addr = " + etMeetingAddr.getText().toString() +
+                    ", part = " + etParticipantPart.getText().toString() + ", username = " + etParticipantName.getText().toString());
+
             mMeetingFace.setMeetingName(etMeetingName.getText().toString());
             mMeetingFace.setMeetingTime(getMeetingTime());
             mMeetingFace.setMeetingAddr(etMeetingAddr.getText().toString());

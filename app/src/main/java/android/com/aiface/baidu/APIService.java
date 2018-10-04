@@ -27,6 +27,9 @@ public class APIService {
 
     private static final String REG_URL = BASE_URL + "/rest/2.0/face/v3/faceset/user/add";
 
+    private static final String GET_GROUP_URL = BASE_URL + "/rest/2.0/face/v3/faceset/group/getlist";
+
+    private static final String DEL_GROUP_URL = BASE_URL + "/rest/2.0/face/v3/faceset/group/delete";
 
     private static final String IDENTIFY_URL = BASE_URL + "/rest/2.0/face/v3/search";
     private static final String VERIFY_URL = BASE_URL + "/rest/2.0/face/v3/verify";
@@ -197,4 +200,29 @@ public class APIService {
         return sb.toString();
     }
 
+    public void getFaceGroupList(OnResultListener listener) {
+        RegParams params = new RegParams();
+
+        try {
+            params.setStart(0);
+            params.setLength(10);
+            RegResultParser parser = new RegResultParser();
+            String url = urlAppendCommonParams(GET_GROUP_URL);
+            HttpUtil.getInstance().post(url, params, parser, listener);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteGroup(OnResultListener listener) {
+        RegParams params = new RegParams();
+        try {
+            params.setGroupName("AiFace");
+            RegResultParser parser = new RegResultParser();
+            String url = urlAppendCommonParams(DEL_GROUP_URL);
+            HttpUtil.getInstance().post(url, params, parser, listener);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

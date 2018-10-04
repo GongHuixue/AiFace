@@ -1,12 +1,14 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.baidu.Config;
 import android.com.aiface.database.bean.HomeFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.HomePresenter;
 import android.com.aiface.ui.view.IHomeView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -96,13 +98,15 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
                 finish();
                 break;
             case R.id.btn_from_local:
+                uploadFromAlbum();
                 break;
             case R.id.btn_from_camera:
+                uploadFromCamera();
                 break;
             case R.id.btn_reg:
+                setFaceGroup(Config.HomeGroupId);
                 registerGustInfo();
                 break;
-
         }
     }
 
@@ -126,9 +130,10 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
     }
 
     private void registerGustInfo() {
-        Log.d(TAG, "registerGustInfo, host name = " + etHostName.getText().toString() + ", host addr = " + etHostAddr.getText().toString() +
-        ", gust name = " + etGustName.getText().toString());
-        if((etHostName.getText().toString() != null) && (etHostAddr.getText().toString() != null) && (etGustName.getText().toString() != null)) {
+        if((!TextUtils.isEmpty(etHostName.getText())) && (!TextUtils.isEmpty(etHostAddr.getText())) &&
+                (!TextUtils.isEmpty(etGustName.getText()))) {
+            Log.d(TAG, "registerGustInfo, host name = " + etHostName.getText().toString() + ", host addr = " + etHostAddr.getText().toString() +
+                    ", gust name = " + etGustName.getText().toString());
             mHomeFace.setHomeAddr(etHostAddr.getText().toString());
             mHomeFace.setHostName(etHostName.getText().toString());
             mHomeFace.setGustName(etGustName.getText().toString());

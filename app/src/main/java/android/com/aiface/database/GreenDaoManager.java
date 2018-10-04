@@ -12,6 +12,8 @@ import android.com.aiface.greendao.MeetingFaceDao;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.util.Log;
+
 import java.util.List;
 
 public class GreenDaoManager {
@@ -94,6 +96,7 @@ public class GreenDaoManager {
 
     public void insertFaceData(FaceBean faceBean) {
         if(faceBean instanceof MeetingFace) {
+            Log.d(TAG, "insert meeting data");
             AiFaceApplication.getDaoSession().getMeetingFaceDao().insertOrReplace((MeetingFace)faceBean);
         }else if(faceBean instanceof AttendanceFace) {
             AiFaceApplication.getDaoSession().getAttendanceFaceDao().insertOrReplace((AttendanceFace)faceBean);

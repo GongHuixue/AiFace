@@ -1,12 +1,14 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.baidu.Config;
 import android.com.aiface.database.bean.AttendanceFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.AttendancePresenter;
 import android.com.aiface.ui.view.IAttendanceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -86,10 +88,13 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
                 finish();
                 break;
             case R.id.btn_from_local:
+                uploadFromAlbum();
                 break;
             case R.id.btn_from_camera:
+                uploadFromCamera();
                 break;
             case R.id.btn_reg:
+                setFaceGroup(Config.AttendanceGroupId);
                 registerAttendanceInfo();
                 break;
         }
@@ -106,8 +111,8 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
     }
 
     private void registerAttendanceInfo() {
-        Log.d(TAG, "registerAttendanceInfo: part = " + etPartName.getText().toString() + ", name = " + etUserName.getText().toString());
-        if((etPartName.getText().toString() != null) && (etUserName.getText().toString() != null)) {
+        if((!TextUtils.isEmpty(etPartName.getText())) && (!TextUtils.isEmpty(etUserName.getText()))){
+            Log.d(TAG, "registerAttendanceInfo: part = " + etPartName.getText().toString() + ", name = " + etUserName.getText().toString());
             mAttendanceFace.setAttendanceName(etUserName.getText().toString());
             mAttendanceFace.setAttendancePart(etPartName.getText().toString());
             greenDaoManager.insertFaceData(mAttendanceFace);

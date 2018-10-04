@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/closeIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_margin="20dp"
         android:src="@drawable/detect_close" />
 
@@ -52,10 +52,10 @@
         android:src="@drawable/icon_success"
         android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/texture_view"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:scaleType="fitCenter" />
+    <!--<ImageView-->
+        <!--android:id="@+id/texture_view"-->
+        <!--android:layout_width="160dp"-->
+        <!--android:layout_height="160dp"-->
+        <!--android:scaleType="fitCenter" />-->
 
 </RelativeLayout>

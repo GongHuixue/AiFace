@@ -11,10 +11,13 @@ public class GateFace extends FaceBean{
     private Long id;
     @NotNull
     private String facePath;
-    @Generated(hash = 1102875792)
-    public GateFace(Long id, @NotNull String facePath) {
+    @NotNull
+    private String userName;
+    @Generated(hash = 777034890)
+    public GateFace(Long id, @NotNull String facePath, @NotNull String userName) {
         this.id = id;
         this.facePath = facePath;
+        this.userName = userName;
     }
     @Generated(hash = 1704070578)
     public GateFace() {
@@ -30,5 +33,11 @@ public class GateFace extends FaceBean{
     }
     public void setFacePath(String facePath) {
         this.facePath = facePath;
+    }
+    public String getUserName() {
+        return this.userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

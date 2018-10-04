@@ -33,7 +33,8 @@
         <activity android:name=".ui.activity.AttendanceQueryActivity" />
         <activity android:name=".ui.activity.HomeVistorActivity" />
         <activity android:name=".ui.activity.GateAccessActivity" />
-        <activity android:name=".ui.activity.FaceDetectActivity"></activity>
+        <activity android:name=".ui.activity.FaceDetectActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

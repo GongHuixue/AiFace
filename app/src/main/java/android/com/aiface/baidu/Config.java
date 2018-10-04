@@ -23,4 +23,9 @@ public class Config {
      */
     public static String groupID = "AiFace";
 
+    public static String MeetingGroupId = "MeetingFace";
+    public static String AttendanceGroupId = "AttendanceFace";
+    public static String HomeGroupId = "HomeFace";
+    public static String GateGroupId = "GateFace";
+
 }
