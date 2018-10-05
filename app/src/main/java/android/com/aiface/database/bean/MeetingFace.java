@@ -16,20 +16,24 @@ public class MeetingFace extends FaceBean{
     private String meetingTimeString;
     @NotNull
     private String meetingAddr;
+    @NotNull
+    private String userId;
 
     @NotNull
     private String participantName;
     @NotNull
     private String participantPart;
-    @Generated(hash = 342336224)
+    @Generated(hash = 1424976935)
     public MeetingFace(Long id, @NotNull String meetingName, long meetingTime,
             @NotNull String meetingTimeString, @NotNull String meetingAddr,
-            @NotNull String participantName, @NotNull String participantPart) {
+            @NotNull String userId, @NotNull String participantName,
+            @NotNull String participantPart) {
         this.id = id;
         this.meetingName = meetingName;
         this.meetingTime = meetingTime;
         this.meetingTimeString = meetingTimeString;
         this.meetingAddr = meetingAddr;
+        this.userId = userId;
         this.participantName = participantName;
         this.participantPart = participantPart;
     }
@@ -79,5 +83,13 @@ public class MeetingFace extends FaceBean{
 
     public void setMeetingTimeString(String meetingTimeString) {
         this.meetingTimeString = meetingTimeString;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

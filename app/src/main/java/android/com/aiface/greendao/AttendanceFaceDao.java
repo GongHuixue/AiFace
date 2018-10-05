@@ -27,6 +27,7 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property AttendancePart = new Property(1, String.class, "attendancePart", false, "ATTENDANCE_PART");
         public final static Property AttendanceName = new Property(2, String.class, "attendanceName", false, "ATTENDANCE_NAME");
+        public final static Property UserId = new Property(3, String.class, "userId", false, "USER_ID");
     }
 
 
@@ -44,7 +45,8 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"ATTENDANCE_FACE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"ATTENDANCE_PART\" TEXT NOT NULL ," + // 1: attendancePart
-                "\"ATTENDANCE_NAME\" TEXT NOT NULL );"); // 2: attendanceName
+                "\"ATTENDANCE_NAME\" TEXT NOT NULL ," + // 2: attendanceName
+                "\"USER_ID\" TEXT NOT NULL );"); // 3: userId
     }
 
     /** Drops the underlying database table. */
@@ -63,6 +65,7 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         }
         stmt.bindString(2, entity.getAttendancePart());
         stmt.bindString(3, entity.getAttendanceName());
+        stmt.bindString(4, entity.getUserId());
     }
 
     @Override
@@ -75,6 +78,7 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         }
         stmt.bindString(2, entity.getAttendancePart());
         stmt.bindString(3, entity.getAttendanceName());
+        stmt.bindString(4, entity.getUserId());
     }
 
     @Override
@@ -87,7 +91,8 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         AttendanceFace entity = new AttendanceFace( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // attendancePart
-            cursor.getString(offset + 2) // attendanceName
+            cursor.getString(offset + 2), // attendanceName
+            cursor.getString(offset + 3) // userId
         );
         return entity;
     }
@@ -97,6 +102,7 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setAttendancePart(cursor.getString(offset + 1));
         entity.setAttendanceName(cursor.getString(offset + 2));
+        entity.setUserId(cursor.getString(offset + 3));
      }
     
     @Override

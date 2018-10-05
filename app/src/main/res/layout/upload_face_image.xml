@@ -23,7 +23,7 @@
             android:layout_height="140dp"
             android:layout_centerInParent="true"
             android:scaleType="centerInside"
-            android:src="@drawable/circle"/>
+            android:src="@drawable/face_default"/>
     </RelativeLayout>
     
     <LinearLayout

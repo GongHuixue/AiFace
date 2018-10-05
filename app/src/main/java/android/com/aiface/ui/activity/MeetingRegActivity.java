@@ -61,6 +61,7 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
 
     private String facePath;
     private Bitmap faceBmp;
+    private String returnUserId;
 
     @Override
     public int getLayoutId() {
@@ -94,6 +95,19 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
             mToastInstance.showShortToast("没有有效的会议，请创建新的会议");
             Log.d(TAG, "No any meeting information");
         }
+
+        registerFaceListener(new IFaceRegCallback() {
+            @Override
+            public void FaceRegSuccess(String userId) {
+                returnUserId = userId;
+                insertMeetingInfo();
+            }
+
+            @Override
+            public void FaceRegFailed() {
+
+            }
+        });
     }
 
     @Override
@@ -142,7 +156,6 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
 
         mFaceImageRl = (RelativeLayout) findViewById(R.id.upload_face_rl);
         faceIv = (ImageView) mFaceImageRl.findViewById(R.id.iv_face_image);
-        faceIv.setImageResource(R.drawable.face_default);
         btnLocal = (Button) mFaceImageRl.findViewById(R.id.btn_from_local);
         btnCamera = (Button) mFaceImageRl.findViewById(R.id.btn_from_camera);
         btnLocal.setOnClickListener(this);
@@ -181,36 +194,10 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
                 uploadFromCamera();
                 break;
             case R.id.btn_reg:
-                /* test */
-
-                APIService.getInstance().deleteGroup(new OnResultListener<RegResult>() {
-                    @Override
-                    public void onResult(RegResult result) {
-                        Log.d(TAG, "Del Group List = " + result.getJsonRes());
-                    }
-
-                    @Override
-                    public void onError(FaceError error) {
-                        Log.e(TAG, "Del Group List Failed");
-                    }
-                });
-
-                /*APIService.getInstance().getFaceGroupList(new OnResultListener<RegResult>() {
-                    @Override
-                    public void onResult(RegResult result) {
-                        Log.d(TAG, "Get Group List = " + result.getJsonRes());
-                    }
-
-                    @Override
-                    public void onError(FaceError error) {
-                        Log.e(TAG, "Get Group List Failed");
-                    }
-                });*/
-
-                //setFaceGroup(Config.MeetingGroupId);
+                setFaceGroup(Config.MeetingGroupId);
 
                 getMeetingTime();
-                registerMeetingInfo();
+
                 registerFaceImage(facePath, etParticipantName.getText().toString().trim());
                 break;
         }
@@ -225,7 +212,7 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
             if (faceBmp != null) {
                 faceBmp.recycle();
             }
-            Log.d(TAG, "facePath = " + facePath);
+            Log.d(TAG, "camera facePath = " + facePath);
             faceBmp = ImageSaveUtil.loadBitmapFromPath(this, facePath);
             if (faceBmp != null) {
                 faceIv.setImageBitmap(faceBmp);
@@ -235,7 +222,7 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
         } else if ((requestCode == REQUEST_CODE_PICK_IMAGE) && (resultCode == Activity.RESULT_OK)) {
             Uri uri = data.getData();
             facePath = getFacePathFromURI(uri);
-
+            Log.d(TAG, "local facePath = " + facePath);
             if (faceBmp != null) {
                 faceBmp.recycle();
             }
@@ -243,6 +230,8 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
             faceBmp = ImageSaveUtil.loadBitmapFromPath(this, facePath);
             if (faceBmp != null) {
                 faceIv.setImageBitmap(faceBmp);
+            }else {
+                Log.e(TAG, "Bitmap is null");
             }
         }
     }
@@ -253,6 +242,8 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
         if(faceBmp != null) {
             faceBmp.recycle();
         }
+
+        unregisterFaceListener();
     }
 
     private long getMeetingTime() {
@@ -326,22 +317,22 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
         }
     }
 
-    private void registerMeetingInfo() {
+    private void insertMeetingInfo() {
         if((!(TextUtils.isEmpty(etMeetingName.getText()))) && (!(TextUtils.isEmpty(etMeetingAddr.getText()))) &&
                 (!(TextUtils.isEmpty(etMeetingTime.getText()))) && (!(TextUtils.isEmpty(etParticipantName.getText()))) &&
-                (!(TextUtils.isEmpty(etParticipantPart.getText())))) {
-            Log.d(TAG, "registerMeetingInfo: name = " + etMeetingName.getText().toString() +
+                (!(TextUtils.isEmpty(etParticipantPart.getText()))) && (!TextUtils.isEmpty(datetime.toString()))) {
+            Log.d(TAG, "insertMeetingInfo: name = " + etMeetingName.getText().toString() +
                     ", time = " + datetime.toString() + ", addr = " + etMeetingAddr.getText().toString() +
                     ", part = " + etParticipantPart.getText().toString() + ", username = " + etParticipantName.getText().toString());
 
             mMeetingFace.setMeetingName(etMeetingName.getText().toString());
             mMeetingFace.setMeetingTime(getMeetingTime());
+            mMeetingFace.setMeetingTimeString(datetime.toString());
+            mMeetingFace.setUserId(returnUserId);
             mMeetingFace.setMeetingAddr(etMeetingAddr.getText().toString());
             mMeetingFace.setParticipantPart(etParticipantPart.getText().toString());
             mMeetingFace.setParticipantName(etParticipantName.getText().toString());
             greenDaoManager.insertFaceData(mMeetingFace);
-
-            mToastInstance.showShortToast("会议报名成功");
         }
     }
 }

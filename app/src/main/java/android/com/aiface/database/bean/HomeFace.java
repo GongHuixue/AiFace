@@ -11,16 +11,20 @@ public class HomeFace extends FaceBean{
     private Long id;
     @NotNull
     private String homeAddr;
+    @NotNull
     private String hostName;
+    @NotNull
+    private String userId;
 
     private String gustName;
 
-    @Generated(hash = 1173753438)
-    public HomeFace(Long id, @NotNull String homeAddr, String hostName,
-            String gustName) {
+    @Generated(hash = 353149367)
+    public HomeFace(Long id, @NotNull String homeAddr, @NotNull String hostName,
+            @NotNull String userId, String gustName) {
         this.id = id;
         this.homeAddr = homeAddr;
         this.hostName = hostName;
+        this.userId = userId;
         this.gustName = gustName;
     }
 
@@ -58,5 +62,13 @@ public class HomeFace extends FaceBean{
 
     public void setGustName(String gustName) {
         this.gustName = gustName;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

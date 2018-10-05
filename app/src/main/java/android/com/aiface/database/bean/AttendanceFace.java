@@ -13,12 +13,15 @@ public class AttendanceFace extends FaceBean{
     private String attendancePart;
     @NotNull
     private String attendanceName;
-    @Generated(hash = 1929452080)
+    @NotNull
+    private String userId;
+    @Generated(hash = 1399932546)
     public AttendanceFace(Long id, @NotNull String attendancePart,
-            @NotNull String attendanceName) {
+            @NotNull String attendanceName, @NotNull String userId) {
         this.id = id;
         this.attendancePart = attendancePart;
         this.attendanceName = attendanceName;
+        this.userId = userId;
     }
     @Generated(hash = 1549355235)
     public AttendanceFace() {
@@ -40,5 +43,11 @@ public class AttendanceFace extends FaceBean{
     }
     public void setAttendanceName(String attendanceName) {
         this.attendanceName = attendanceName;
+    }
+    public String getUserId() {
+        return this.userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -1,11 +1,16 @@
 package android.com.aiface.ui.activity;
 
+import android.app.Activity;
 import android.com.aiface.R;
 import android.com.aiface.baidu.Config;
+import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.AttendanceFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.AttendancePresenter;
 import android.com.aiface.ui.view.IAttendanceView;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,7 +39,12 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
     private Button btnLocal, btnCamera, btnReg;
     private TextView tvPartName, tvUserName;
     private EditText etPartName, etUserName;
-    private ImageView faceImg;
+    private ImageView faceIv;
+
+    private String facePath;
+    private Bitmap faceBmp;
+    private String returnUserId;
+
 
     private AttendanceFace mAttendanceFace = new AttendanceFace();
     private List<AttendanceFace> mAttendanceFacelist = new ArrayList<>();
@@ -66,7 +76,7 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
         btnCamera = (Button)mFaceImageRl.findViewById(R.id.btn_from_camera);
         btnLocal.setOnClickListener(this);
         btnCamera.setOnClickListener(this);
-        faceImg = (ImageView)mFaceImageRl.findViewById(R.id.iv_face_image);
+        faceIv = (ImageView)mFaceImageRl.findViewById(R.id.iv_face_image);
 
         btnReg = (Button)findViewById(R.id.btn_reg);
         btnReg.setOnClickListener(this);
@@ -79,6 +89,19 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
         if(mAttendanceFacelist.size() == 0) {
             mToastInstance.showShortToast("目前没有任何员工信息，请先注册");
         }
+
+        registerFaceListener(new IFaceRegCallback() {
+            @Override
+            public void FaceRegSuccess(String userId) {
+                returnUserId = userId;
+                insertAttendanceInfo();
+            }
+
+            @Override
+            public void FaceRegFailed() {
+
+            }
+        });
     }
 
     @Override
@@ -95,7 +118,7 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
                 break;
             case R.id.btn_reg:
                 setFaceGroup(Config.AttendanceGroupId);
-                registerAttendanceInfo();
+                registerFaceImage(facePath, etUserName.getText().toString().trim());
                 break;
         }
     }
@@ -110,13 +133,54 @@ public class AttendanceRegActivity extends BaseActivity<IAttendanceView, Attenda
         mAttendanceFacelist = greenDaoManager.getAttendanceInfo();
     }
 
-    private void registerAttendanceInfo() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult, requestCode = " + requestCode + ", resultCode = " + resultCode);
+        if ((requestCode == REQUEST_CODE_DETECT_FACE) && (resultCode == Activity.RESULT_OK)) {
+            facePath = ImageSaveUtil.loadCameraBitmapPath(this, "head_tmp.jpg");
+            if (faceBmp != null) {
+                faceBmp.recycle();
+            }
+            Log.d(TAG, "facePath = " + facePath);
+            faceBmp = ImageSaveUtil.loadBitmapFromPath(this, facePath);
+            if (faceBmp != null) {
+                faceIv.setImageBitmap(faceBmp);
+            }else {
+                Log.e(TAG, "Bitmap is null");
+            }
+        } else if ((requestCode == REQUEST_CODE_PICK_IMAGE) && (resultCode == Activity.RESULT_OK)) {
+            Uri uri = data.getData();
+            facePath = getFacePathFromURI(uri);
+
+            if (faceBmp != null) {
+                faceBmp.recycle();
+            }
+
+            faceBmp = ImageSaveUtil.loadBitmapFromPath(this, facePath);
+            if (faceBmp != null) {
+                faceIv.setImageBitmap(faceBmp);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(faceBmp != null) {
+            faceBmp.recycle();
+        }
+        unregisterFaceListener();
+    }
+
+    private void insertAttendanceInfo() {
         if((!TextUtils.isEmpty(etPartName.getText())) && (!TextUtils.isEmpty(etUserName.getText()))){
-            Log.d(TAG, "registerAttendanceInfo: part = " + etPartName.getText().toString() + ", name = " + etUserName.getText().toString());
-            mAttendanceFace.setAttendanceName(etUserName.getText().toString());
-            mAttendanceFace.setAttendancePart(etPartName.getText().toString());
+            Log.d(TAG, "insertAttendanceInfo: part = " + etPartName.getText().toString() + ", name = " + etUserName.getText().toString());
+            mAttendanceFace.setAttendanceName(etUserName.getText().toString().trim());
+            mAttendanceFace.setAttendancePart(etPartName.getText().toString().trim());
+            mAttendanceFace.setUserId(returnUserId);
+
             greenDaoManager.insertFaceData(mAttendanceFace);
-            mToastInstance.showShortToast("注册成功");
         }
     }
 }

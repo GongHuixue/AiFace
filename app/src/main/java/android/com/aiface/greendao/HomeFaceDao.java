@@ -27,7 +27,8 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property HomeAddr = new Property(1, String.class, "homeAddr", false, "HOME_ADDR");
         public final static Property HostName = new Property(2, String.class, "hostName", false, "HOST_NAME");
-        public final static Property GustName = new Property(3, String.class, "gustName", false, "GUST_NAME");
+        public final static Property UserId = new Property(3, String.class, "userId", false, "USER_ID");
+        public final static Property GustName = new Property(4, String.class, "gustName", false, "GUST_NAME");
     }
 
 
@@ -45,8 +46,9 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"HOME_FACE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"HOME_ADDR\" TEXT NOT NULL ," + // 1: homeAddr
-                "\"HOST_NAME\" TEXT," + // 2: hostName
-                "\"GUST_NAME\" TEXT);"); // 3: gustName
+                "\"HOST_NAME\" TEXT NOT NULL ," + // 2: hostName
+                "\"USER_ID\" TEXT NOT NULL ," + // 3: userId
+                "\"GUST_NAME\" TEXT);"); // 4: gustName
     }
 
     /** Drops the underlying database table. */
@@ -64,15 +66,12 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getHomeAddr());
- 
-        String hostName = entity.getHostName();
-        if (hostName != null) {
-            stmt.bindString(3, hostName);
-        }
+        stmt.bindString(3, entity.getHostName());
+        stmt.bindString(4, entity.getUserId());
  
         String gustName = entity.getGustName();
         if (gustName != null) {
-            stmt.bindString(4, gustName);
+            stmt.bindString(5, gustName);
         }
     }
 
@@ -85,15 +84,12 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getHomeAddr());
- 
-        String hostName = entity.getHostName();
-        if (hostName != null) {
-            stmt.bindString(3, hostName);
-        }
+        stmt.bindString(3, entity.getHostName());
+        stmt.bindString(4, entity.getUserId());
  
         String gustName = entity.getGustName();
         if (gustName != null) {
-            stmt.bindString(4, gustName);
+            stmt.bindString(5, gustName);
         }
     }
 
@@ -107,8 +103,9 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
         HomeFace entity = new HomeFace( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // homeAddr
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // hostName
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // gustName
+            cursor.getString(offset + 2), // hostName
+            cursor.getString(offset + 3), // userId
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // gustName
         );
         return entity;
     }
@@ -117,8 +114,9 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
     public void readEntity(Cursor cursor, HomeFace entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setHomeAddr(cursor.getString(offset + 1));
-        entity.setHostName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setGustName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setHostName(cursor.getString(offset + 2));
+        entity.setUserId(cursor.getString(offset + 3));
+        entity.setGustName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

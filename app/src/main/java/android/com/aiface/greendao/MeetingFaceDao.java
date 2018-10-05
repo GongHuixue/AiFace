@@ -29,8 +29,9 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         public final static Property MeetingTime = new Property(2, long.class, "meetingTime", false, "MEETING_TIME");
         public final static Property MeetingTimeString = new Property(3, String.class, "meetingTimeString", false, "MEETING_TIME_STRING");
         public final static Property MeetingAddr = new Property(4, String.class, "meetingAddr", false, "MEETING_ADDR");
-        public final static Property ParticipantName = new Property(5, String.class, "participantName", false, "PARTICIPANT_NAME");
-        public final static Property ParticipantPart = new Property(6, String.class, "participantPart", false, "PARTICIPANT_PART");
+        public final static Property UserId = new Property(5, String.class, "userId", false, "USER_ID");
+        public final static Property ParticipantName = new Property(6, String.class, "participantName", false, "PARTICIPANT_NAME");
+        public final static Property ParticipantPart = new Property(7, String.class, "participantPart", false, "PARTICIPANT_PART");
     }
 
 
@@ -51,8 +52,9 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
                 "\"MEETING_TIME\" INTEGER NOT NULL ," + // 2: meetingTime
                 "\"MEETING_TIME_STRING\" TEXT NOT NULL ," + // 3: meetingTimeString
                 "\"MEETING_ADDR\" TEXT NOT NULL ," + // 4: meetingAddr
-                "\"PARTICIPANT_NAME\" TEXT NOT NULL ," + // 5: participantName
-                "\"PARTICIPANT_PART\" TEXT NOT NULL );"); // 6: participantPart
+                "\"USER_ID\" TEXT NOT NULL ," + // 5: userId
+                "\"PARTICIPANT_NAME\" TEXT NOT NULL ," + // 6: participantName
+                "\"PARTICIPANT_PART\" TEXT NOT NULL );"); // 7: participantPart
     }
 
     /** Drops the underlying database table. */
@@ -73,8 +75,9 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         stmt.bindLong(3, entity.getMeetingTime());
         stmt.bindString(4, entity.getMeetingTimeString());
         stmt.bindString(5, entity.getMeetingAddr());
-        stmt.bindString(6, entity.getParticipantName());
-        stmt.bindString(7, entity.getParticipantPart());
+        stmt.bindString(6, entity.getUserId());
+        stmt.bindString(7, entity.getParticipantName());
+        stmt.bindString(8, entity.getParticipantPart());
     }
 
     @Override
@@ -89,8 +92,9 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         stmt.bindLong(3, entity.getMeetingTime());
         stmt.bindString(4, entity.getMeetingTimeString());
         stmt.bindString(5, entity.getMeetingAddr());
-        stmt.bindString(6, entity.getParticipantName());
-        stmt.bindString(7, entity.getParticipantPart());
+        stmt.bindString(6, entity.getUserId());
+        stmt.bindString(7, entity.getParticipantName());
+        stmt.bindString(8, entity.getParticipantPart());
     }
 
     @Override
@@ -106,8 +110,9 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
             cursor.getLong(offset + 2), // meetingTime
             cursor.getString(offset + 3), // meetingTimeString
             cursor.getString(offset + 4), // meetingAddr
-            cursor.getString(offset + 5), // participantName
-            cursor.getString(offset + 6) // participantPart
+            cursor.getString(offset + 5), // userId
+            cursor.getString(offset + 6), // participantName
+            cursor.getString(offset + 7) // participantPart
         );
         return entity;
     }
@@ -119,8 +124,9 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         entity.setMeetingTime(cursor.getLong(offset + 2));
         entity.setMeetingTimeString(cursor.getString(offset + 3));
         entity.setMeetingAddr(cursor.getString(offset + 4));
-        entity.setParticipantName(cursor.getString(offset + 5));
-        entity.setParticipantPart(cursor.getString(offset + 6));
+        entity.setUserId(cursor.getString(offset + 5));
+        entity.setParticipantName(cursor.getString(offset + 6));
+        entity.setParticipantPart(cursor.getString(offset + 7));
      }
     
     @Override
