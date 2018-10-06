@@ -1,19 +1,30 @@
 package android.com.aiface.ui.fragment;
 
 import android.com.aiface.R;
+import android.com.aiface.baidu.APIService;
+import android.com.aiface.baidu.Config;
 import android.com.aiface.settings.AiFaceEnum.*;
+import android.com.aiface.ui.activity.FaceDetectActivity;
 import android.com.aiface.ui.activity.MainActivity;
+import android.com.aiface.ui.activity.MeetingRegActivity;
 import android.com.aiface.ui.base.BaseFragment;
 import android.com.aiface.ui.presenter.DetectPresenter;
 import android.com.aiface.ui.view.IDetectView;
+import android.content.Intent;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class DetectFragment extends BaseFragment<IDetectView, DetectPresenter> implements IDetectView{
+public class DetectFragment extends BaseFragment<IDetectView, DetectPresenter> implements IDetectView, View.OnTouchListener{
+    private final static String TAG = DetectFragment.class.getSimpleName();
     private TextView mTvDescription;
     private LinearLayout mMeetingll, mAttendancell, mHomell, mGatell;
+    private volatile int mDetectMode = 1;
+    private DetectMode detectMode = DetectMode.DETECT_NONE;
 
     @Override
     protected DetectPresenter createPresenter() {
@@ -34,6 +45,7 @@ public class DetectFragment extends BaseFragment<IDetectView, DetectPresenter> i
     public void initView(View view) {
         TextView mTvMeeting, mTvAttendance, mTvHome, mTvGate;
         ImageView mIvMeeting, mIvAttendance, mIvHome, mIvGate;
+        Button mStart;
         mTvDescription = (TextView)view.findViewById(R.id.tv_description);
         mTvDescription.setText(R.string.detect_title);
 
@@ -60,11 +72,88 @@ public class DetectFragment extends BaseFragment<IDetectView, DetectPresenter> i
         mTvGate = (TextView)mGatell.findViewById(R.id.tv_textview);
         mTvGate.setText(R.string.collect_detect_gate);
         mIvGate.setImageResource(R.drawable.gate);
+
+        mStart = view.findViewById(R.id.btn_start);
+        mStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeToDetectMode(mDetectMode);
+
+                setDetectFaceGroup();
+
+                ((MainActivity)getActivity()).jumpToActivity(FaceDetectActivity.class);
+                Log.d(TAG,"start register");
+            }
+        });
     }
 
     @Override
     public void initDetectView() {
 
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_UP) {
+            onClick(v);
+        }
+
+        return false;
+    }
+
+    private void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.it_meeting:
+                mDetectMode = 1;
+                break;
+            case R.id.it_attendance:
+                mDetectMode = 2;
+                break;
+            case R.id.it_home:
+                mDetectMode = 3;
+                break;
+            case R.id.it_gate:
+                mDetectMode = 4;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setDetectFaceGroup() {
+        String groupId = "";
+        switch (mDetectMode) {
+            case 1:
+                groupId = Config.MeetingGroupId;
+                break;
+            case 2:
+                groupId = Config.AttendanceGroupId;
+                break;
+            case 3:
+                groupId = Config.HomeGroupId;
+                break;
+            case 4:
+                groupId = Config.GateGroupId;
+                break;
+        }
+        APIService.getInstance().setGroupId(groupId);
+    }
+
+    private void changeToDetectMode(int mode) {
+        switch (mode) {
+            case 1:
+                detectMode = DetectMode.DETECT_MEETING;
+                break;
+            case 2:
+                detectMode = DetectMode.DETECT_ATTENDANCE;
+                break;
+            case 3:
+                detectMode = DetectMode.DETECT_HOME;
+                break;
+            case 4:
+                detectMode = DetectMode.DETECT_GATE;
+        }
+        mSettingManager.setDetectMode(detectMode);
     }
 
     private int changeDetectToInt(DetectMode mode) {

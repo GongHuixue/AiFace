@@ -14,7 +14,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:src="@drawable/circle"/>
+        android:src="@drawable/face_default"/>
 
     <View style="@style/Line" />
 

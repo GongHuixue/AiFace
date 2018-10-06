@@ -10,18 +10,25 @@ public class AttendanceFace extends FaceBean{
     @Id
     private Long id;
     @NotNull
+    private String userId;
+    @NotNull
     private String attendancePart;
     @NotNull
     private String attendanceName;
-    @NotNull
-    private String userId;
-    @Generated(hash = 1399932546)
-    public AttendanceFace(Long id, @NotNull String attendancePart,
-            @NotNull String attendanceName, @NotNull String userId) {
+    private String onworktime;
+    private String offworktime;
+
+
+    @Generated(hash = 1298912290)
+    public AttendanceFace(Long id, @NotNull String userId,
+            @NotNull String attendancePart, @NotNull String attendanceName,
+            String onworktime, String offworktime) {
         this.id = id;
+        this.userId = userId;
         this.attendancePart = attendancePart;
         this.attendanceName = attendanceName;
-        this.userId = userId;
+        this.onworktime = onworktime;
+        this.offworktime = offworktime;
     }
     @Generated(hash = 1549355235)
     public AttendanceFace() {
@@ -49,5 +56,17 @@ public class AttendanceFace extends FaceBean{
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+    public String getOnworktime() {
+        return this.onworktime;
+    }
+    public void setOnworktime(String onworktime) {
+        this.onworktime = onworktime;
+    }
+    public String getOffworktime() {
+        return this.offworktime;
+    }
+    public void setOffworktime(String offworktime) {
+        this.offworktime = offworktime;
     }
 }

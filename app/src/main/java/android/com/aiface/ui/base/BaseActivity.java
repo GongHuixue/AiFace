@@ -38,6 +38,8 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     private String userId;
     private IFaceRegCallback faceListener;
 
+    protected final String UPLOAD_FROM_CAMERA = "upload_from_camera";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +115,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     public void uploadFromCamera() {
         checkPermission();
         Intent intent = new Intent(this, FaceDetectActivity.class);
+        intent.putExtra(UPLOAD_FROM_CAMERA, true);
         startActivityForResult(intent, REQUEST_CODE_DETECT_FACE);
     }
 

@@ -158,8 +158,6 @@ public class GateRegActivity extends BaseActivity<IGateView, GatePresenter> impl
             mGateFace.setUserId(returnUserId);
 
             greenDaoManager.insertFaceData(mGateFace);
-
-            mToastInstance.showShortToast("注册成功");
         }
     }
 }

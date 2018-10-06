@@ -25,9 +25,11 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property AttendancePart = new Property(1, String.class, "attendancePart", false, "ATTENDANCE_PART");
-        public final static Property AttendanceName = new Property(2, String.class, "attendanceName", false, "ATTENDANCE_NAME");
-        public final static Property UserId = new Property(3, String.class, "userId", false, "USER_ID");
+        public final static Property UserId = new Property(1, String.class, "userId", false, "USER_ID");
+        public final static Property AttendancePart = new Property(2, String.class, "attendancePart", false, "ATTENDANCE_PART");
+        public final static Property AttendanceName = new Property(3, String.class, "attendanceName", false, "ATTENDANCE_NAME");
+        public final static Property Onworktime = new Property(4, String.class, "onworktime", false, "ONWORKTIME");
+        public final static Property Offworktime = new Property(5, String.class, "offworktime", false, "OFFWORKTIME");
     }
 
 
@@ -44,9 +46,11 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ATTENDANCE_FACE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"ATTENDANCE_PART\" TEXT NOT NULL ," + // 1: attendancePart
-                "\"ATTENDANCE_NAME\" TEXT NOT NULL ," + // 2: attendanceName
-                "\"USER_ID\" TEXT NOT NULL );"); // 3: userId
+                "\"USER_ID\" TEXT NOT NULL ," + // 1: userId
+                "\"ATTENDANCE_PART\" TEXT NOT NULL ," + // 2: attendancePart
+                "\"ATTENDANCE_NAME\" TEXT NOT NULL ," + // 3: attendanceName
+                "\"ONWORKTIME\" TEXT," + // 4: onworktime
+                "\"OFFWORKTIME\" TEXT);"); // 5: offworktime
     }
 
     /** Drops the underlying database table. */
@@ -63,9 +67,19 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindString(2, entity.getAttendancePart());
-        stmt.bindString(3, entity.getAttendanceName());
-        stmt.bindString(4, entity.getUserId());
+        stmt.bindString(2, entity.getUserId());
+        stmt.bindString(3, entity.getAttendancePart());
+        stmt.bindString(4, entity.getAttendanceName());
+ 
+        String onworktime = entity.getOnworktime();
+        if (onworktime != null) {
+            stmt.bindString(5, onworktime);
+        }
+ 
+        String offworktime = entity.getOffworktime();
+        if (offworktime != null) {
+            stmt.bindString(6, offworktime);
+        }
     }
 
     @Override
@@ -76,9 +90,19 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindString(2, entity.getAttendancePart());
-        stmt.bindString(3, entity.getAttendanceName());
-        stmt.bindString(4, entity.getUserId());
+        stmt.bindString(2, entity.getUserId());
+        stmt.bindString(3, entity.getAttendancePart());
+        stmt.bindString(4, entity.getAttendanceName());
+ 
+        String onworktime = entity.getOnworktime();
+        if (onworktime != null) {
+            stmt.bindString(5, onworktime);
+        }
+ 
+        String offworktime = entity.getOffworktime();
+        if (offworktime != null) {
+            stmt.bindString(6, offworktime);
+        }
     }
 
     @Override
@@ -90,9 +114,11 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
     public AttendanceFace readEntity(Cursor cursor, int offset) {
         AttendanceFace entity = new AttendanceFace( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getString(offset + 1), // attendancePart
-            cursor.getString(offset + 2), // attendanceName
-            cursor.getString(offset + 3) // userId
+            cursor.getString(offset + 1), // userId
+            cursor.getString(offset + 2), // attendancePart
+            cursor.getString(offset + 3), // attendanceName
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // onworktime
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // offworktime
         );
         return entity;
     }
@@ -100,9 +126,11 @@ public class AttendanceFaceDao extends AbstractDao<AttendanceFace, Long> {
     @Override
     public void readEntity(Cursor cursor, AttendanceFace entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setAttendancePart(cursor.getString(offset + 1));
-        entity.setAttendanceName(cursor.getString(offset + 2));
-        entity.setUserId(cursor.getString(offset + 3));
+        entity.setUserId(cursor.getString(offset + 1));
+        entity.setAttendancePart(cursor.getString(offset + 2));
+        entity.setAttendanceName(cursor.getString(offset + 3));
+        entity.setOnworktime(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setOffworktime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     
     @Override

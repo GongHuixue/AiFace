@@ -49,4 +49,38 @@ public class DateTime {
         Log.d(TAG, "convertTimeToString times = " + times + ", string = " + timeString);
         return timeString;
     }
+
+    public boolean isTheSameDay(String datetime) {
+        boolean sameDay = false;
+        Date nowDate, date, tempDate;
+        String nowDateString;
+        if(datetime != null) {
+            date = timeStringToDate(datetime, "yyyy-MM-dd");
+
+            SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+            tempDate = new Date(System.currentTimeMillis());
+            nowDateString = formater.format(tempDate);
+            nowDate = timeStringToDate(nowDateString, "yyyy-MM-dd");
+
+            Log.d(TAG, "date compare = " + date.compareTo(nowDate));
+            if(date.compareTo(nowDate) == 0) {
+                sameDay = true;
+            }else {
+                sameDay = false;
+            }
+            Log.d(TAG, "is The Same Day" + sameDay);
+        }
+        return sameDay;
+    }
+
+    private Date timeStringToDate(String time, String format) {
+        SimpleDateFormat formater = new SimpleDateFormat(format);
+        Date date = null;
+        try{
+            date = formater.parse(time);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 }
