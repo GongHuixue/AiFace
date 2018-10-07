@@ -62,6 +62,8 @@ public class MeetingSignedActivity extends BaseActivity<IMeetingView, MeetingPre
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_title.setText(R.string.meeting_result);
 
+        faceImg = (ImageView)findViewById(R.id.face_signed);
+
         mMeetingNamell = (LinearLayout) findViewById(R.id.te_meeting_name);
         TextView tvMeetingName = (TextView) mMeetingNamell.findViewById(R.id.tv_name);
         etMeetingName = (EditText) mMeetingNamell.findViewById(R.id.et_name);

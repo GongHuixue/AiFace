@@ -55,6 +55,8 @@ public class HomeVistorActivity extends BaseActivity<IHomeView, HomePresenter> i
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_title.setText(R.string.home_result);
 
+        faceImg = (ImageView) findViewById(R.id.face_signed);
+
         teHostName = (LinearLayout)findViewById(R.id.te_host_name);
         TextView tvHostName = (TextView)teHostName.findViewById(R.id.tv_name);
         tvHostName.setText(R.string.host_name);
@@ -84,7 +86,7 @@ public class HomeVistorActivity extends BaseActivity<IHomeView, HomePresenter> i
         if((returnUserId != null) && (returnUserName != null)) {
             mHomeFace = (HomeFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, "Home");
         }else {
-            mToastInstance.showLongToast("陌生人");
+            mToastInstance.showLongToast("陌生人，请离开");
             return;
         }
 

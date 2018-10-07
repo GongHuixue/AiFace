@@ -54,6 +54,7 @@ public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, Atten
         });
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_title.setText(R.string.attendance_result);
+        faceImg = (ImageView) findViewById(R.id.face_signed);
 
         partll = (LinearLayout) findViewById(R.id.te_participant_part);
         TextView tvPart = (TextView)partll.findViewById(R.id.tv_name);
