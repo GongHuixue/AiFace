@@ -500,6 +500,7 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
 
     private void dispatchDetectResult() {
         detectMode = mSettingManager.getDetectMode();
+        Log.d(TAG, "Current detect mode = " + detectMode);
         Intent intent = null;
         switch (detectMode) {
             case DETECT_MEETING:

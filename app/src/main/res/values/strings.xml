@@ -25,6 +25,7 @@
     <string name="participant_name">参会者姓名</string>
     <string name="participant_part">参会者部门</string>
     <string name="meeting_reg">注册</string>
+    <string name="meeting_result">会议签到</string>
 
     <!--考勤注册-->
     <string name="attendance_title">请输入公司个人信息</string>
@@ -32,16 +33,19 @@
     <string name="attendance_name">姓名</string>
     <string name="onwork_time">上班时间</string>
     <string name="offwork_time">下班时间</string>
+    <string name="attendance_result">考勤记录</string>
 
     <!--家庭注册-->
     <string name="home_title">请输入主客关系</string>
     <string name="host_name">主人名字</string>
     <string name="host_addr">主人房号</string>
     <string name="gust_name">来访者姓名</string>
+    <string name="home_result">访客信息</string>
 
     <!--安检闸机-->
     <string name="gate_title">请输入个人信息</string>
     <string name="user_name">姓名</string>
+    <string name="gate_result">个人信息</string>
 
     <!--Face Detect-->
     <string name="detect_no_face">未检测到人脸</string>

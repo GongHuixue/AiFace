@@ -1,17 +1,21 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.MeetingFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.MeetingPresenter;
 import android.com.aiface.ui.view.IMeetingView;
 import android.com.aiface.utils.DateTime;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,8 +25,14 @@ import java.util.List;
 
 public class MeetingSignedActivity extends BaseActivity<IMeetingView, MeetingPresenter> implements IMeetingView {
     private final static String TAG = MeetingSignedActivity.class.getSimpleName();
+
+    /*top action bar*/
+    private ImageView iv_back;
+    private TextView tv_title;
+
     private LinearLayout mMeetingNamell, mMeetingTimell, mSetMeetingTimell, mMeetingAddrll, mParticipantName, mParticipantPart;
     private EditText etMeetingName, etMeetingTime, etMeetingAddr, etParticipantName, etParticipantPart;
+    private ImageView faceImg;
 
 
     private String returnUserId;
@@ -42,6 +52,16 @@ public class MeetingSignedActivity extends BaseActivity<IMeetingView, MeetingPre
 
     @Override
     public void initView() {
+        iv_back = (ImageView) findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_title.setText(R.string.meeting_result);
+
         mMeetingNamell = (LinearLayout) findViewById(R.id.te_meeting_name);
         TextView tvMeetingName = (TextView) mMeetingNamell.findViewById(R.id.tv_name);
         etMeetingName = (EditText) mMeetingNamell.findViewById(R.id.et_name);
@@ -105,6 +125,12 @@ public class MeetingSignedActivity extends BaseActivity<IMeetingView, MeetingPre
             etMeetingName.setEnabled(false);
             etParticipantPart.setEnabled(false);
             etParticipantPart.setEnabled(false);
+
+            faceImg.setVisibility(View.VISIBLE);
+            Bitmap bmp = ImageSaveUtil.loadCameraBitmap(this, "head_tmp.jpg");
+            if (bmp != null) {
+                faceImg.setImageBitmap(bmp);
+            }
         }
     }
 

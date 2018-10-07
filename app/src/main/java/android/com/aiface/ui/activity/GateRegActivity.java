@@ -106,7 +106,7 @@ public class GateRegActivity extends BaseActivity<IGateView, GatePresenter> impl
                 uploadFromCamera();
                 break;
             case R.id.btn_reg:
-                setFaceGroup(Config.HomeGroupId);
+                setFaceGroup(Config.GateGroupId);
                 registerFaceImage(facePath, etUserName.getText().toString().trim());
                 break;
         }

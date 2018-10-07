@@ -1,6 +1,5 @@
 package android.com.aiface.ui.fragment;
 
-import android.app.Activity;
 import android.com.aiface.R;
 import android.com.aiface.settings.AiFaceEnum.*;
 import android.com.aiface.ui.activity.AttendanceRegActivity;
@@ -12,13 +11,11 @@ import android.com.aiface.ui.base.BaseFragment;
 import android.com.aiface.ui.presenter.CollectPresenter;
 import android.com.aiface.ui.view.ICollectView;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CollectFragment extends BaseFragment<ICollectView, CollectPresenter> implements ICollectView, View.OnTouchListener{

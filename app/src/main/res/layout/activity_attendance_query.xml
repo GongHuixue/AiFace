@@ -4,34 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.activity.AttendanceQueryActivity">
 
-    <ImageView
-        android:id="@+id/face_signed"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/face_default"/>
+    <include android:id="@+id/top_bar"
+        layout="@layout/top_action_bar"/>
 
-    <View style="@style/Line" />
-
-    <include android:id="@+id/te_participant_name"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:padding="5dp"
-        layout="@layout/text_edittext_ll"/>
-    <include android:id="@+id/te_participant_part"
-        android:padding="5dp"
-        layout="@layout/text_edittext_ll"/>
+        android:orientation="vertical">
 
-    <View style="@style/Line" />
 
-    <include android:id="@+id/te_onwork"
-        layout="@layout/text_edittext_ll"
-        android:padding="5dp"/>
+        <ImageView
+            android:id="@+id/face_signed"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/face_default" />
 
-    <include android:id="@+id/te_offwork"
-        layout="@layout/text_edittext_ll"
-        android:padding="5dp"/>
+        <View style="@style/Line" />
 
+        <include
+            android:id="@+id/te_participant_name"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <include
+            android:id="@+id/te_participant_part"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <View style="@style/Line" />
+
+        <include
+            android:id="@+id/te_onwork"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <include
+            android:id="@+id/te_offwork"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+    </LinearLayout>
 </LinearLayout>

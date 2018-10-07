@@ -5,44 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="5dp"
     tools:context=".ui.activity.MeetingSignedActivity">
 
-    <ImageView
-        android:id="@+id/face_signed"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/face_default"/>
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/top_action_bar" />
 
-    <View style="@style/Line" />
-    <include android:id="@+id/te_meeting_name"
-        android:padding="5dp"
-        layout="@layout/text_edittext_ll"/>
-    <include android:id="@+id/te_meeting_time"
-        android:padding="5dp"
-        layout="@layout/text_edittext_ll"/>
-    <include android:id="@+id/te_meeting_addr"
-        android:padding="5dp"
-        layout="@layout/text_edittext_ll"/>
-    <View style="@style/Line" />
-
-    <include android:id="@+id/te_participant_name"
-        android:padding="5dp"
-        layout="@layout/text_edittext_ll"/>
-    <include android:id="@+id/te_participant_part"
-        android:padding="5dp"
-        layout="@layout/text_edittext_ll"/>
-
-    <View style="@style/Line" />
-
-    <TextView
-        android:id="@+id/tv_signed"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:text="已签到"/>
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/face_signed"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/face_default" />
+
+        <View style="@style/Line" />
+
+        <include
+            android:id="@+id/te_meeting_name"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <include
+            android:id="@+id/te_meeting_time"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <include
+            android:id="@+id/te_meeting_addr"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <View style="@style/Line" />
+
+        <include
+            android:id="@+id/te_participant_name"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <include
+            android:id="@+id/te_participant_part"
+            layout="@layout/text_edittext_ll"
+            android:padding="5dp" />
+
+        <View style="@style/Line" />
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

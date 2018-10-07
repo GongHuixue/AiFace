@@ -98,12 +98,13 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
             @Override
             public void FaceRegSuccess(String userId) {
                 returnUserId = userId;
+                Log.d(TAG, "Home Register Success, userId = " + returnUserId);
                 insertGustInfo();
             }
 
             @Override
             public void FaceRegFailed() {
-
+                Log.e(TAG, "Home Register failed");
             }
         });
     }
@@ -127,8 +128,7 @@ public class HomeRegActivity extends BaseActivity<IHomeView, HomePresenter> impl
                 break;
             case R.id.btn_reg:
                 setFaceGroup(Config.HomeGroupId);
-                insertGustInfo();
-                registerFaceImage(facePath, etHostName.getText().toString().trim());
+                registerFaceImage(facePath, etGustName.getText().toString().trim());
                 break;
         }
     }

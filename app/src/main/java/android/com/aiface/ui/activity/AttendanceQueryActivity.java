@@ -2,16 +2,20 @@ package android.com.aiface.ui.activity;
 
 import android.com.aiface.AiFaceApplication;
 import android.com.aiface.R;
+import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.AttendanceFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.AttendancePresenter;
 import android.com.aiface.ui.view.IAttendanceView;
 import android.com.aiface.utils.DateTime;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,9 +24,13 @@ import java.util.List;
 
 public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, AttendancePresenter> implements IAttendanceView {
     private final static String TAG = AttendanceQueryActivity.class.getSimpleName();
+    /*top action bar*/
+    private ImageView iv_back;
+    private TextView tv_title;
 
     private LinearLayout partll, namell, onworkll, offworkll;
     private EditText etPart, etName, etOnWorkTime, etOffWorkTime;
+    private ImageView faceImg;
     private String returnUserId;
     private String returnUserName;
 
@@ -37,6 +45,16 @@ public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, Atten
 
     @Override
     public void initView() {
+        iv_back = (ImageView) findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_title.setText(R.string.attendance_result);
+
         partll = (LinearLayout) findViewById(R.id.te_participant_part);
         TextView tvPart = (TextView)partll.findViewById(R.id.tv_name);
         tvPart.setText(R.string.attendance_part);
@@ -85,6 +103,16 @@ public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, Atten
             etName.setText(mAttendanceFace.getAttendanceName());
             etPart.setEnabled(false);
             etName.setEnabled(false);
+
+            etOnWorkTime.setEnabled(false);
+            etOffWorkTime.setEnabled(false);
+
+            faceImg.setVisibility(View.VISIBLE);
+            Bitmap bmp = ImageSaveUtil.loadCameraBitmap(this, "head_tmp.jpg");
+            if (bmp != null) {
+                faceImg.setImageBitmap(bmp);
+            }
+
         }
 
         insertOrUpdateTime();
