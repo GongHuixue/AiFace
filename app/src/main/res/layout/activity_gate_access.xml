@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activity.GateAccessActivity">
+    tools:context=".ui.activity.GateDetectActivity">
 
     <include android:id="@+id/top_bar"
         layout="@layout/top_action_bar"/>

@@ -8,8 +8,6 @@ import android.com.aiface.ui.presenter.HomePresenter;
 import android.com.aiface.ui.view.IHomeView;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,9 +17,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeVistorActivity extends BaseActivity<IHomeView, HomePresenter> implements IHomeView {
+public class HomeDetectActivity extends BaseActivity<IHomeView, HomePresenter> implements IHomeView {
 
-    private final static String TAG = HomeVistorActivity.class.getSimpleName();
+    private final static String TAG = HomeDetectActivity.class.getSimpleName();
 
     /*top action bar*/
     private ImageView iv_back;

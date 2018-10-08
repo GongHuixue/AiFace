@@ -1,12 +1,18 @@
 package android.com.aiface.ui.fragment;
 
 import android.com.aiface.R;
+import android.com.aiface.ui.activity.AttendanceResultActivity;
+import android.com.aiface.ui.activity.GateResultActivity;
+import android.com.aiface.ui.activity.HomeResultActivity;
 import android.com.aiface.ui.activity.MainActivity;
+import android.com.aiface.ui.activity.MeetingResultActivity;
 import android.com.aiface.ui.adapter.FragListItem;
 import android.com.aiface.ui.adapter.FragListItemAdapter;
 import android.com.aiface.ui.base.BaseFragment;
 import android.com.aiface.ui.presenter.MePresenter;
 import android.com.aiface.ui.view.IMeView;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MeFragment extends BaseFragment<IMeView, MePresenter> implements IMeView{
+    private final static String TAG = MeFragment.class.getSimpleName();
     private List<FragListItem> meListItems = new ArrayList<>();
     private FragListItemAdapter fragListItemAdapter;
     @Override
@@ -41,6 +48,7 @@ public class MeFragment extends BaseFragment<IMeView, MePresenter> implements IM
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "position = " + position);
                 startLaunchActivity(position);
             }
         });
@@ -64,6 +72,21 @@ public class MeFragment extends BaseFragment<IMeView, MePresenter> implements IM
     }
 
     private void startLaunchActivity(int position) {
-
+        Intent intent = null;
+        switch (position){
+            case 0:
+                intent = new Intent(getActivity(), MeetingResultActivity.class);
+                break;
+            case 1:
+                intent = new Intent(getActivity(), AttendanceResultActivity.class);
+                break;
+            case 2:
+                intent = new Intent(getActivity(), HomeResultActivity.class);
+                break;
+            case 3:
+                intent = new Intent(getActivity(), GateResultActivity.class);
+                break;
+        }
+        startActivity(intent);
     }
 }

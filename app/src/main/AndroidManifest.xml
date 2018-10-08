@@ -16,8 +16,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:screenOrientation="portrait"
+        android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
@@ -30,11 +30,15 @@
         <activity android:name=".ui.activity.AttendanceRegActivity" />
         <activity android:name=".ui.activity.HomeRegActivity" />
         <activity android:name=".ui.activity.GateRegActivity" />
-        <activity android:name=".ui.activity.MeetingSignedActivity" />
-        <activity android:name=".ui.activity.AttendanceQueryActivity" />
-        <activity android:name=".ui.activity.HomeVistorActivity" />
-        <activity android:name=".ui.activity.GateAccessActivity" />
-        <activity android:name=".ui.activity.FaceDetectActivity"></activity>
+        <activity android:name=".ui.activity.MeetingDetectActivity" />
+        <activity android:name=".ui.activity.AttendanceDetectActivity" />
+        <activity android:name=".ui.activity.HomeDetectActivity" />
+        <activity android:name=".ui.activity.GateDetectActivity" />
+        <activity android:name=".ui.activity.FaceDetectActivity" />
+        <activity android:name=".ui.activity.MeetingResultActivity" />
+        <activity android:name=".ui.activity.AttendanceResultActivity" />
+        <activity android:name=".ui.activity.HomeResultActivity" />
+        <activity android:name=".ui.activity.GateResultActivity"></activity>
     </application>
 
 </manifest>

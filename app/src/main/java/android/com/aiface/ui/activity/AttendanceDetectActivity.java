@@ -1,6 +1,5 @@
 package android.com.aiface.ui.activity;
 
-import android.com.aiface.AiFaceApplication;
 import android.com.aiface.R;
 import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.AttendanceFace;
@@ -10,8 +9,6 @@ import android.com.aiface.ui.view.IAttendanceView;
 import android.com.aiface.utils.DateTime;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -22,8 +19,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, AttendancePresenter> implements IAttendanceView {
-    private final static String TAG = AttendanceQueryActivity.class.getSimpleName();
+public class AttendanceDetectActivity extends BaseActivity<IAttendanceView, AttendancePresenter> implements IAttendanceView {
+    private final static String TAG = AttendanceDetectActivity.class.getSimpleName();
     /*top action bar*/
     private ImageView iv_back;
     private TextView tv_title;
@@ -83,6 +80,7 @@ public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, Atten
         Log.d(TAG, "member list size = " + mAttendanceFacelist.size());
         if(mAttendanceFacelist.size() < 0) {
             mToastInstance.showLongToast("目前没有任何员工信息");
+            return;
         }
 
         /*get detect result from faceDetectActivity*/
@@ -132,6 +130,7 @@ public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, Atten
     private void insertOrUpdateTime() {
         String dateTime = mDateTime.convertTimeToString(mDateTime.getSystemTime());
         if(mAttendanceFace != null) {
+            Log.d(TAG, "mAttendanceFace on = " + mAttendanceFace.getOnworktime() + ", off = " + mAttendanceFace.getOffworktime());
             /*first detect*/
             if (mAttendanceFace.getOnworktime() == null) {
                 greenDaoManager.updateWorkTime(returnUserId, returnUserName, dateTime, null);
@@ -145,6 +144,8 @@ public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, Atten
                 if(mDateTime.isTheSameDay(mAttendanceFace.getOffworktime())) {
                     //the same day
                     mToastInstance.showShortToast("你已经下班啦");
+                    etOnWorkTime.setText(mAttendanceFace.getOnworktime());
+                    etOffWorkTime.setText(mAttendanceFace.getOffworktime());
                 }else {
                     mAttendanceFace.setAttendanceName(mAttendanceFace.getAttendanceName());
                     mAttendanceFace.setAttendancePart(mAttendanceFace.getAttendancePart());
@@ -152,6 +153,7 @@ public class AttendanceQueryActivity extends BaseActivity<IAttendanceView, Atten
                     mAttendanceFace.setOnworktime(dateTime);
                     etOnWorkTime.setText(dateTime);
                     etOffWorkTime.setText("");
+                    Log.d(TAG, "insert new data");
                     greenDaoManager.insertFaceData(mAttendanceFace);
                 }
             }

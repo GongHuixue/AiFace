@@ -34,7 +34,6 @@ dependencies {
     api files('libs/FaceSDK.jar')
     api files('libs/baidu_license.jar')
     api files('libs/ast.jar')
-//    implementation 'com.android.support:appcompat-v7:25.1.0'
     api 'com.android.support:design:27.0.2'
     api 'com.android.support:appcompat-v7:27.0.2'
 }

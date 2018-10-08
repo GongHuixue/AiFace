@@ -3,14 +3,11 @@ package android.com.aiface.ui.activity;
 import android.com.aiface.R;
 import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.GateFace;
-import android.com.aiface.database.bean.HomeFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.GatePresenter;
 import android.com.aiface.ui.view.IGateView;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,8 +17,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GateAccessActivity extends BaseActivity<IGateView, GatePresenter> implements IGateView {
-    private final static String TAG = GateAccessActivity.class.getSimpleName();
+public class GateDetectActivity extends BaseActivity<IGateView, GatePresenter> implements IGateView {
+    private final static String TAG = GateDetectActivity.class.getSimpleName();
 
     /*top action bar*/
     private ImageView iv_back;

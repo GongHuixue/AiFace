@@ -9,11 +9,8 @@ import android.com.aiface.ui.view.IMeetingView;
 import android.com.aiface.utils.DateTime;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,8 +20,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MeetingSignedActivity extends BaseActivity<IMeetingView, MeetingPresenter> implements IMeetingView {
-    private final static String TAG = MeetingSignedActivity.class.getSimpleName();
+public class MeetingDetectActivity extends BaseActivity<IMeetingView, MeetingPresenter> implements IMeetingView {
+    private final static String TAG = MeetingDetectActivity.class.getSimpleName();
 
     /*top action bar*/
     private ImageView iv_back;

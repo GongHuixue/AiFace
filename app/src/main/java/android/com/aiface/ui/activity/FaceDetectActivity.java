@@ -504,16 +504,16 @@ public class FaceDetectActivity extends BaseActivity<IDetectView, DetectPresente
         Intent intent = null;
         switch (detectMode) {
             case DETECT_MEETING:
-                intent = new Intent(FaceDetectActivity.this, MeetingSignedActivity.class);
+                intent = new Intent(FaceDetectActivity.this, MeetingDetectActivity.class);
                 break;
             case DETECT_ATTENDANCE:
-                intent = new Intent(FaceDetectActivity.this, AttendanceQueryActivity.class);
+                intent = new Intent(FaceDetectActivity.this, AttendanceDetectActivity.class);
                 break;
             case DETECT_HOME:
-                intent = new Intent(FaceDetectActivity.this, HomeVistorActivity.class);
+                intent = new Intent(FaceDetectActivity.this, HomeDetectActivity.class);
                 break;
             case DETECT_GATE:
-                intent = new Intent(FaceDetectActivity.this, GateAccessActivity.class);
+                intent = new Intent(FaceDetectActivity.this, GateDetectActivity.class);
                 break;
                 default:
                     break;

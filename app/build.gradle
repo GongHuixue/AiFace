@@ -64,6 +64,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
     //add baidu face sdk
     api project(':facesdk')
+    //add smartTable
+    api 'com.github.huangyanbin:SmartTable:2.2.0'
 
 
     testImplementation 'junit:junit:4.12'
