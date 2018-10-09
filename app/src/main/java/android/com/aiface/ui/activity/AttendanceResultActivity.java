@@ -28,7 +28,7 @@ public class AttendanceResultActivity extends BaseActivity<IAttendanceView, Atte
     public void initData() {
         getAttendanceMember();
         Log.d(TAG, "member list size = " + mAttendanceFacelist.size());
-        if(mAttendanceFacelist.size() < 0) {
+        if(mAttendanceFacelist.size() == 0) {
             mToastInstance.showLongToast("目前没有任何员工信息");
         }
     }

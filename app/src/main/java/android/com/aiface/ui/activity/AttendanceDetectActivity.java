@@ -78,7 +78,7 @@ public class AttendanceDetectActivity extends BaseActivity<IAttendanceView, Atte
     public void initData() {
         getAttendanceMember();
         Log.d(TAG, "member list size = " + mAttendanceFacelist.size());
-        if(mAttendanceFacelist.size() < 0) {
+        if(mAttendanceFacelist.size() <= 0) {
             mToastInstance.showLongToast("目前没有任何员工信息");
             return;
         }
@@ -96,22 +96,23 @@ public class AttendanceDetectActivity extends BaseActivity<IAttendanceView, Atte
             mAttendanceFace = (AttendanceFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, "Attendance");
         }
 
-        /*update EditText Information*/
-        if((mAttendanceFace.getAttendanceName() != null) && (mAttendanceFace.getAttendancePart() != null)) {
-            etPart.setText(mAttendanceFace.getAttendancePart());
-            etName.setText(mAttendanceFace.getAttendanceName());
-            etPart.setEnabled(false);
-            etName.setEnabled(false);
+        if(mAttendanceFace != null) {
+            /*update EditText Information*/
+            if ((mAttendanceFace.getAttendanceName() != null) && (mAttendanceFace.getAttendancePart() != null)) {
+                etPart.setText(mAttendanceFace.getAttendancePart());
+                etName.setText(mAttendanceFace.getAttendanceName());
+                etPart.setEnabled(false);
+                etName.setEnabled(false);
 
-            etOnWorkTime.setEnabled(false);
-            etOffWorkTime.setEnabled(false);
+                etOnWorkTime.setEnabled(false);
+                etOffWorkTime.setEnabled(false);
 
-            faceImg.setVisibility(View.VISIBLE);
-            Bitmap bmp = ImageSaveUtil.loadCameraBitmap(this, "head_tmp.jpg");
-            if (bmp != null) {
-                faceImg.setImageBitmap(bmp);
+                faceImg.setVisibility(View.VISIBLE);
+                Bitmap bmp = ImageSaveUtil.loadCameraBitmap(this, "head_tmp.jpg");
+                if (bmp != null) {
+                    faceImg.setImageBitmap(bmp);
+                }
             }
-
         }
 
         insertOrUpdateTime();
@@ -131,7 +132,6 @@ public class AttendanceDetectActivity extends BaseActivity<IAttendanceView, Atte
         String dateTime = mDateTime.convertTimeToString(mDateTime.getSystemTime());
         if(mAttendanceFace != null) {
             Log.d(TAG, "mAttendanceFace on = " + mAttendanceFace.getOnworktime() + ", off = " + mAttendanceFace.getOffworktime());
-            /*first detect*/
             if (mAttendanceFace.getOnworktime() == null) {
                 greenDaoManager.updateWorkTime(returnUserId, returnUserName, dateTime, null);
                 etOnWorkTime.setText(dateTime);
@@ -146,11 +146,22 @@ public class AttendanceDetectActivity extends BaseActivity<IAttendanceView, Atte
                     mToastInstance.showShortToast("你已经下班啦");
                     etOnWorkTime.setText(mAttendanceFace.getOnworktime());
                     etOffWorkTime.setText(mAttendanceFace.getOffworktime());
-                }else {
+
+//                    Log.d(TAG, "mAttendanceFace on = " + mAttendanceFace.getOnworktime() + ", off = " + mAttendanceFace.getOffworktime());
+//                    AttendanceFace attendanceFace = new AttendanceFace();
+//                    attendanceFace.setAttendanceName(mAttendanceFace.getAttendanceName());
+//                    attendanceFace.setAttendancePart(mAttendanceFace.getAttendancePart());
+//                    attendanceFace.setUserId(returnUserId);
+//                    attendanceFace.setOnworktime("2018-10-08 12:00");
+//                    attendanceFace.setOffworktime("2018-10-08 17:00");
+//                    greenDaoManager.insertFaceData(attendanceFace);
+                } else {
                     mAttendanceFace.setAttendanceName(mAttendanceFace.getAttendanceName());
                     mAttendanceFace.setAttendancePart(mAttendanceFace.getAttendancePart());
                     mAttendanceFace.setUserId(mAttendanceFace.getUserId());
+                    /*need change on/off work time in mAttendanceFace*/
                     mAttendanceFace.setOnworktime(dateTime);
+                    mAttendanceFace.setOffworktime("");
                     etOnWorkTime.setText(dateTime);
                     etOffWorkTime.setText("");
                     Log.d(TAG, "insert new data");

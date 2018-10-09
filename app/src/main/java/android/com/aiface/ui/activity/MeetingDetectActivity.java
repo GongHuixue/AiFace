@@ -123,7 +123,7 @@ public class MeetingDetectActivity extends BaseActivity<IMeetingView, MeetingPre
             etMeetingTime.setEnabled(false);
             etMeetingName.setEnabled(false);
             etParticipantPart.setEnabled(false);
-            etParticipantPart.setEnabled(false);
+            etParticipantName.setEnabled(false);
 
             faceImg.setVisibility(View.VISIBLE);
             Bitmap bmp = ImageSaveUtil.loadCameraBitmap(this, "head_tmp.jpg");

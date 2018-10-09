@@ -52,6 +52,7 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
     private ImageView faceIv;
     private String dateSet, timeSet;
     private StringBuffer datetime;
+    private long longTime;
 
     private List<MeetingFace> meetingFaceList = new ArrayList<>();
     private Calendar mCalendar = Calendar.getInstance();
@@ -99,13 +100,14 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
         registerFaceListener(new IFaceRegCallback() {
             @Override
             public void FaceRegSuccess(String userId) {
+                Log.d(TAG, "FaceRegSuccess userId = " + userId);
                 returnUserId = userId;
                 insertMeetingInfo();
             }
 
             @Override
             public void FaceRegFailed() {
-
+                Log.e(TAG, "FaceRegFailed");
             }
         });
     }
@@ -254,6 +256,7 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
             Log.d(TAG, "date + time " + datetime.toString());
             try {
                 time = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).parse(datetime.toString()).getTime();
+                longTime = time;
                 Log.d(TAG, "getMeetingTime Time = " + time);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -318,20 +321,20 @@ public class MeetingRegActivity extends BaseActivity<IMeetingView, MeetingPresen
     }
 
     private void insertMeetingInfo() {
-        if((!(TextUtils.isEmpty(etMeetingName.getText()))) && (!(TextUtils.isEmpty(etMeetingAddr.getText()))) &&
-                (!(TextUtils.isEmpty(etMeetingTime.getText()))) && (!(TextUtils.isEmpty(etParticipantName.getText()))) &&
-                (!(TextUtils.isEmpty(etParticipantPart.getText()))) && (!TextUtils.isEmpty(datetime.toString()))) {
+        if((!TextUtils.isEmpty(etMeetingName.getText())) && (!TextUtils.isEmpty(etMeetingAddr.getText())) &&
+                (!TextUtils.isEmpty(etParticipantName.getText())) &&
+                (!TextUtils.isEmpty(etParticipantPart.getText())) && (!TextUtils.isEmpty(datetime.toString()))) {
             Log.d(TAG, "insertMeetingInfo: name = " + etMeetingName.getText().toString() +
                     ", time = " + datetime.toString() + ", addr = " + etMeetingAddr.getText().toString() +
                     ", part = " + etParticipantPart.getText().toString() + ", username = " + etParticipantName.getText().toString());
 
-            mMeetingFace.setMeetingName(etMeetingName.getText().toString());
-            mMeetingFace.setMeetingTime(getMeetingTime());
+            mMeetingFace.setMeetingName(etMeetingName.getText().toString().trim());
+            mMeetingFace.setMeetingTime(longTime);
             mMeetingFace.setMeetingTimeString(datetime.toString());
             mMeetingFace.setUserId(returnUserId);
-            mMeetingFace.setMeetingAddr(etMeetingAddr.getText().toString());
-            mMeetingFace.setParticipantPart(etParticipantPart.getText().toString());
-            mMeetingFace.setParticipantName(etParticipantName.getText().toString());
+            mMeetingFace.setMeetingAddr(etMeetingAddr.getText().toString().trim());
+            mMeetingFace.setParticipantPart(etParticipantPart.getText().toString().trim());
+            mMeetingFace.setParticipantName(etParticipantName.getText().toString().trim());
             greenDaoManager.insertFaceData(mMeetingFace);
         }
     }

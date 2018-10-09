@@ -28,7 +28,7 @@ public class HomeResultActivity extends BaseActivity<IHomeView, HomePresenter> i
         getHostInformation();
 
         Log.d(TAG, "Vistor Size = " + homeFaceList.size());
-        if(homeFaceList.size() < 0) {
+        if(homeFaceList.size() <= 0) {
             mToastInstance.showShortToast("没有任何来访者");
         }
     }

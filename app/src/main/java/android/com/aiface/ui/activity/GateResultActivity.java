@@ -27,7 +27,7 @@ public class GateResultActivity extends BaseActivity<IGateView, GatePresenter> i
     public void initData() {
         gateFaceList = greenDaoManager.getGateInfo();
 
-        if(gateFaceList.size() < 0) {
+        if(gateFaceList.size() <= 0) {
             mToastInstance.showShortToast("没有任何用户记录");
         }
     }
