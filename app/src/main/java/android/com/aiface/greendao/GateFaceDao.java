@@ -27,6 +27,7 @@ public class GateFaceDao extends AbstractDao<GateFace, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property UserName = new Property(1, String.class, "userName", false, "USER_NAME");
         public final static Property UserId = new Property(2, String.class, "userId", false, "USER_ID");
+        public final static Property CheckTime = new Property(3, String.class, "checkTime", false, "CHECK_TIME");
     }
 
 
@@ -44,7 +45,8 @@ public class GateFaceDao extends AbstractDao<GateFace, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"GATE_FACE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"USER_NAME\" TEXT NOT NULL ," + // 1: userName
-                "\"USER_ID\" TEXT NOT NULL );"); // 2: userId
+                "\"USER_ID\" TEXT NOT NULL ," + // 2: userId
+                "\"CHECK_TIME\" TEXT);"); // 3: checkTime
     }
 
     /** Drops the underlying database table. */
@@ -63,6 +65,11 @@ public class GateFaceDao extends AbstractDao<GateFace, Long> {
         }
         stmt.bindString(2, entity.getUserName());
         stmt.bindString(3, entity.getUserId());
+ 
+        String checkTime = entity.getCheckTime();
+        if (checkTime != null) {
+            stmt.bindString(4, checkTime);
+        }
     }
 
     @Override
@@ -75,6 +82,11 @@ public class GateFaceDao extends AbstractDao<GateFace, Long> {
         }
         stmt.bindString(2, entity.getUserName());
         stmt.bindString(3, entity.getUserId());
+ 
+        String checkTime = entity.getCheckTime();
+        if (checkTime != null) {
+            stmt.bindString(4, checkTime);
+        }
     }
 
     @Override
@@ -87,7 +99,8 @@ public class GateFaceDao extends AbstractDao<GateFace, Long> {
         GateFace entity = new GateFace( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // userName
-            cursor.getString(offset + 2) // userId
+            cursor.getString(offset + 2), // userId
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // checkTime
         );
         return entity;
     }
@@ -97,6 +110,7 @@ public class GateFaceDao extends AbstractDao<GateFace, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setUserName(cursor.getString(offset + 1));
         entity.setUserId(cursor.getString(offset + 2));
+        entity.setCheckTime(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override

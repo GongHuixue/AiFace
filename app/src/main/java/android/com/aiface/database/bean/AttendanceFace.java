@@ -33,6 +33,7 @@ public class AttendanceFace extends FaceBean{
     @Generated(hash = 1549355235)
     public AttendanceFace() {
     }
+
     public Long getId() {
         return this.id;
     }

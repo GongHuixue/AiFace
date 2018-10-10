@@ -13,11 +13,15 @@ public class GateFace extends FaceBean{
     private String userName;
     @NotNull
     private String userId;
-    @Generated(hash = 1792876576)
-    public GateFace(Long id, @NotNull String userName, @NotNull String userId) {
+
+    private String checkTime;
+    @Generated(hash = 2015871224)
+    public GateFace(Long id, @NotNull String userName, @NotNull String userId,
+            String checkTime) {
         this.id = id;
         this.userName = userName;
         this.userId = userId;
+        this.checkTime = checkTime;
     }
     @Generated(hash = 1704070578)
     public GateFace() {
@@ -39,5 +43,11 @@ public class GateFace extends FaceBean{
     }
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+    public String getCheckTime() {
+        return this.checkTime;
+    }
+    public void setCheckTime(String checkTime) {
+        this.checkTime = checkTime;
     }
 }

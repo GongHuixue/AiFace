@@ -29,6 +29,7 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
         public final static Property HostName = new Property(2, String.class, "hostName", false, "HOST_NAME");
         public final static Property UserId = new Property(3, String.class, "userId", false, "USER_ID");
         public final static Property GustName = new Property(4, String.class, "gustName", false, "GUST_NAME");
+        public final static Property VisitTime = new Property(5, String.class, "visitTime", false, "VISIT_TIME");
     }
 
 
@@ -48,7 +49,8 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
                 "\"HOME_ADDR\" TEXT NOT NULL ," + // 1: homeAddr
                 "\"HOST_NAME\" TEXT NOT NULL ," + // 2: hostName
                 "\"USER_ID\" TEXT NOT NULL ," + // 3: userId
-                "\"GUST_NAME\" TEXT);"); // 4: gustName
+                "\"GUST_NAME\" TEXT," + // 4: gustName
+                "\"VISIT_TIME\" TEXT);"); // 5: visitTime
     }
 
     /** Drops the underlying database table. */
@@ -73,6 +75,11 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
         if (gustName != null) {
             stmt.bindString(5, gustName);
         }
+ 
+        String visitTime = entity.getVisitTime();
+        if (visitTime != null) {
+            stmt.bindString(6, visitTime);
+        }
     }
 
     @Override
@@ -91,6 +98,11 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
         if (gustName != null) {
             stmt.bindString(5, gustName);
         }
+ 
+        String visitTime = entity.getVisitTime();
+        if (visitTime != null) {
+            stmt.bindString(6, visitTime);
+        }
     }
 
     @Override
@@ -105,7 +117,8 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
             cursor.getString(offset + 1), // homeAddr
             cursor.getString(offset + 2), // hostName
             cursor.getString(offset + 3), // userId
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // gustName
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // gustName
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // visitTime
         );
         return entity;
     }
@@ -117,6 +130,7 @@ public class HomeFaceDao extends AbstractDao<HomeFace, Long> {
         entity.setHostName(cursor.getString(offset + 2));
         entity.setUserId(cursor.getString(offset + 3));
         entity.setGustName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setVisitTime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     
     @Override

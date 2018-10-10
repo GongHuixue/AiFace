@@ -5,12 +5,14 @@ import android.com.aiface.database.bean.HomeFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.HomePresenter;
 import android.com.aiface.ui.view.IHomeView;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bin.david.form.core.SmartTable;
+import com.bin.david.form.data.column.Column;
+import com.bin.david.form.data.table.TableData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class HomeResultActivity extends BaseActivity<IHomeView, HomePresenter> i
 
     private HomeFace mHomeFace;
     private List<HomeFace> homeFaceList = new ArrayList<>();
+    private SmartTable<HomeFace> table;
     @Override
     public void initData() {
         getHostInformation();
@@ -44,7 +47,6 @@ public class HomeResultActivity extends BaseActivity<IHomeView, HomePresenter> i
         });
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_title.setText(R.string.home_result);
-
 
     }
 

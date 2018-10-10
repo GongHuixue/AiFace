@@ -1,6 +1,7 @@
 package android.com.aiface.database;
 
 import android.com.aiface.AiFaceApplication;
+import android.com.aiface.baidu.Config;
 import android.com.aiface.database.bean.AttendanceFace;
 import android.com.aiface.database.bean.FaceBean;
 import android.com.aiface.database.bean.GateFace;
@@ -119,7 +120,7 @@ public class GreenDaoManager {
         AttendanceFace faceInfo;
         if(onTime != null) {
             if((userId != null) && (userName != null)) {
-                faceInfo = (AttendanceFace) queryFaceByIdName(userId, userName, "Attendance");
+                faceInfo = (AttendanceFace) queryFaceByIdName(userId, userName, Config.AttendanceGroupId);
                 faceInfo.setOnworktime(onTime);
                 AiFaceApplication.getDaoSession().getAttendanceFaceDao().update(faceInfo);
             }
@@ -128,22 +129,38 @@ public class GreenDaoManager {
         /*update offwork time*/
         if(offTime != null) {
             if((userId != null) && (userName != null)) {
-                faceInfo = (AttendanceFace) queryFaceByIdName(userId, userName, "Attendance");
+                faceInfo = (AttendanceFace) queryFaceByIdName(userId, userName, Config.AttendanceGroupId);
                 faceInfo.setOffworktime(offTime);
                 AiFaceApplication.getDaoSession().getAttendanceFaceDao().update(faceInfo);
+            }
+        }
+    }
+    
+    public void updateDetectTime(String userId, String userName, String time, String faceType) {
+        if((userId != null) && (userName != null)) {
+            if(faceType.equals(Config.HomeGroupId)) {
+                HomeFace homeFace;
+                homeFace = (HomeFace) queryFaceByIdName(userId, userName, faceType);
+                homeFace.setVisitTime(time);
+            }
+            
+            if(faceType.equals(Config.GateGroupId)) {
+                GateFace gateFace;
+                gateFace = (GateFace) queryFaceByIdName(userId, userName, faceType);
+                gateFace.setCheckTime(time);
             }
         }
     }
 
     public FaceBean queryFaceByIdName(String userId, String userName, String table) {
         FaceBean faceInfo = new FaceBean();
-        if(table.equals("Meeting")) {
+        if(table.equals(Config.MeetingGroupId)) {
             faceInfo = AiFaceApplication.getDaoSession()
                     .getMeetingFaceDao()
                     .queryBuilder()
                     .where(MeetingFaceDao.Properties.UserId.eq(userId), MeetingFaceDao.Properties.ParticipantName.eq(userName))
                     .unique();
-        }else if(table.equals("Attendance")) {
+        }else if(table.equals(Config.AttendanceGroupId)) {
             faceInfo = AiFaceApplication.getDaoSession()
                     .getAttendanceFaceDao()
                     .queryBuilder()
@@ -151,13 +168,13 @@ public class GreenDaoManager {
                     .orderDesc(AttendanceFaceDao.Properties.Id)
                     .limit(1)
                     .unique();
-        }else if(table.equals("Home")) {
+        }else if(table.equals(Config.HomeGroupId)) {
             faceInfo = AiFaceApplication.getDaoSession()
                     .getHomeFaceDao()
                     .queryBuilder()
                     .where(HomeFaceDao.Properties.UserId.eq(userId), HomeFaceDao.Properties.GustName.eq(userName))
                     .unique();
-        }else if(table.equals("Gate")) {
+        }else if(table.equals(Config.GateGroupId)) {
             faceInfo = AiFaceApplication.getDaoSession()
                     .getGateFaceDao()
                     .queryBuilder()
