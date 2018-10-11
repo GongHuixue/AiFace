@@ -41,6 +41,7 @@ public class MeFragment extends BaseFragment<IMeView, MePresenter> implements IM
 
     @Override
     public void initView(View view) {
+        Log.d(TAG, "initView");
         initListViewData();
         ListView listView = (ListView)view.findViewById(R.id.me_lv);
         fragListItemAdapter = new FragListItemAdapter(getActivity(), R.layout.me_list_item, meListItems);

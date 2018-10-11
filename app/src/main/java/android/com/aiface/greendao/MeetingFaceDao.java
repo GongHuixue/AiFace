@@ -32,6 +32,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         public final static Property UserId = new Property(5, String.class, "userId", false, "USER_ID");
         public final static Property ParticipantName = new Property(6, String.class, "participantName", false, "PARTICIPANT_NAME");
         public final static Property ParticipantPart = new Property(7, String.class, "participantPart", false, "PARTICIPANT_PART");
+        public final static Property Signed = new Property(8, boolean.class, "signed", false, "SIGNED");
     }
 
 
@@ -54,7 +55,8 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
                 "\"MEETING_ADDR\" TEXT NOT NULL ," + // 4: meetingAddr
                 "\"USER_ID\" TEXT NOT NULL ," + // 5: userId
                 "\"PARTICIPANT_NAME\" TEXT NOT NULL ," + // 6: participantName
-                "\"PARTICIPANT_PART\" TEXT NOT NULL );"); // 7: participantPart
+                "\"PARTICIPANT_PART\" TEXT NOT NULL ," + // 7: participantPart
+                "\"SIGNED\" INTEGER NOT NULL );"); // 8: signed
     }
 
     /** Drops the underlying database table. */
@@ -78,6 +80,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         stmt.bindString(6, entity.getUserId());
         stmt.bindString(7, entity.getParticipantName());
         stmt.bindString(8, entity.getParticipantPart());
+        stmt.bindLong(9, entity.getSigned() ? 1L: 0L);
     }
 
     @Override
@@ -95,6 +98,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         stmt.bindString(6, entity.getUserId());
         stmt.bindString(7, entity.getParticipantName());
         stmt.bindString(8, entity.getParticipantPart());
+        stmt.bindLong(9, entity.getSigned() ? 1L: 0L);
     }
 
     @Override
@@ -112,7 +116,8 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
             cursor.getString(offset + 4), // meetingAddr
             cursor.getString(offset + 5), // userId
             cursor.getString(offset + 6), // participantName
-            cursor.getString(offset + 7) // participantPart
+            cursor.getString(offset + 7), // participantPart
+            cursor.getShort(offset + 8) != 0 // signed
         );
         return entity;
     }
@@ -127,6 +132,7 @@ public class MeetingFaceDao extends AbstractDao<MeetingFace, Long> {
         entity.setUserId(cursor.getString(offset + 5));
         entity.setParticipantName(cursor.getString(offset + 6));
         entity.setParticipantPart(cursor.getString(offset + 7));
+        entity.setSigned(cursor.getShort(offset + 8) != 0);
      }
     
     @Override

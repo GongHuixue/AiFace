@@ -23,11 +23,12 @@ public class MeetingFace extends FaceBean{
     private String participantName;
     @NotNull
     private String participantPart;
-    @Generated(hash = 1424976935)
+    private boolean signed = false;
+    @Generated(hash = 1009996203)
     public MeetingFace(Long id, @NotNull String meetingName, long meetingTime,
             @NotNull String meetingTimeString, @NotNull String meetingAddr,
             @NotNull String userId, @NotNull String participantName,
-            @NotNull String participantPart) {
+            @NotNull String participantPart, boolean signed) {
         this.id = id;
         this.meetingName = meetingName;
         this.meetingTime = meetingTime;
@@ -36,6 +37,7 @@ public class MeetingFace extends FaceBean{
         this.userId = userId;
         this.participantName = participantName;
         this.participantPart = participantPart;
+        this.signed = signed;
     }
 
     public MeetingFace() {
@@ -91,5 +93,13 @@ public class MeetingFace extends FaceBean{
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public boolean getSigned() {
+        return this.signed;
+    }
+
+    public void setSigned(boolean signed) {
+        this.signed = signed;
     }
 }

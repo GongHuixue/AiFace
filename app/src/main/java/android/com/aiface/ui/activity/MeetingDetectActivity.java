@@ -1,6 +1,7 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.baidu.Config;
 import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.MeetingFace;
 import android.com.aiface.ui.base.BaseActivity;
@@ -107,7 +108,7 @@ public class MeetingDetectActivity extends BaseActivity<IMeetingView, MeetingPre
 
         /*get meeting information from database*/
         if((returnUserName != null) && (returnUserId != null)) {
-            mMeetingFace = (MeetingFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, "Meeting");
+            mMeetingFace = (MeetingFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, Config.MeetingGroupId);
         }
 
         /*update meeting infor*/
@@ -130,6 +131,7 @@ public class MeetingDetectActivity extends BaseActivity<IMeetingView, MeetingPre
             if (bmp != null) {
                 faceImg.setImageBitmap(bmp);
             }
+            greenDaoManager.updateMeetingSigned(returnUserId, returnUserName, true);
         }
     }
 

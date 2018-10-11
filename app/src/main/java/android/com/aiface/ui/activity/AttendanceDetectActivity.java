@@ -1,6 +1,7 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.baidu.Config;
 import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.AttendanceFace;
 import android.com.aiface.ui.base.BaseActivity;
@@ -93,7 +94,7 @@ public class AttendanceDetectActivity extends BaseActivity<IAttendanceView, Atte
 
         /*query member infor from database*/
         if((returnUserId != null) && (returnUserName != null)) {
-            mAttendanceFace = (AttendanceFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, "Attendance");
+            mAttendanceFace = (AttendanceFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, Config.AttendanceGroupId);
         }
 
         if(mAttendanceFace != null) {

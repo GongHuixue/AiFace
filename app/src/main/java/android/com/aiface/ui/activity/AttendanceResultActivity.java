@@ -32,7 +32,6 @@ public class AttendanceResultActivity extends BaseActivity<IAttendanceView, Atte
     private SmartTable<AttendanceFace> table;
 
     private List<AttendanceFace> mAttendanceFacelist = new ArrayList<>();
-    private Column<String> userNameCol, userPartCol, onWorkTimeCol, offWorkTimeCol;
 
     @Override
     public void initData() {

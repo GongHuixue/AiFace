@@ -104,7 +104,6 @@ public class GreenDaoManager {
 
     public void insertFaceData(FaceBean faceBean) {
         if(faceBean instanceof MeetingFace) {
-            Log.d(TAG, "insert meeting data");
             AiFaceApplication.getDaoSession().getMeetingFaceDao().insertOrReplace((MeetingFace)faceBean);
         }else if(faceBean instanceof AttendanceFace) {
             AiFaceApplication.getDaoSession().getAttendanceFaceDao().insertOrReplace((AttendanceFace)faceBean);
@@ -142,13 +141,24 @@ public class GreenDaoManager {
                 HomeFace homeFace;
                 homeFace = (HomeFace) queryFaceByIdName(userId, userName, faceType);
                 homeFace.setVisitTime(time);
+                AiFaceApplication.getDaoSession().getHomeFaceDao().update(homeFace);
             }
             
             if(faceType.equals(Config.GateGroupId)) {
                 GateFace gateFace;
                 gateFace = (GateFace) queryFaceByIdName(userId, userName, faceType);
                 gateFace.setCheckTime(time);
+                AiFaceApplication.getDaoSession().getGateFaceDao().update(gateFace);
             }
+        }
+    }
+
+    public void updateMeetingSigned(String userId, String userName, boolean signed) {
+        if((userId != null) && (userName != null)) {
+            MeetingFace meetingFace;
+            meetingFace = (MeetingFace)queryFaceByIdName(userId, userName, Config.MeetingGroupId);
+            meetingFace.setSigned(signed);
+            AiFaceApplication.getDaoSession().getMeetingFaceDao().update(meetingFace);
         }
     }
 

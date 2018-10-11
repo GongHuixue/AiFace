@@ -1,13 +1,16 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.baidu.Config;
 import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.HomeFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.HomePresenter;
 import android.com.aiface.ui.view.IHomeView;
+import android.com.aiface.utils.DateTime;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,7 +34,7 @@ public class HomeDetectActivity extends BaseActivity<IHomeView, HomePresenter> i
 
     private HomeFace mHomeFace;
     private List<HomeFace> homeFaceList = new ArrayList<>();
-
+    private DateTime mDateTime = DateTime.getDTInstance();
 
     private String returnUserId;
     private String returnUserName;
@@ -81,8 +84,9 @@ public class HomeDetectActivity extends BaseActivity<IHomeView, HomePresenter> i
             returnUserName = intent.getStringExtra("user_info");
         }
 
+        String dateTime = mDateTime.convertTimeToString(mDateTime.getSystemTime());
         if((returnUserId != null) && (returnUserName != null)) {
-            mHomeFace = (HomeFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, "Home");
+            mHomeFace = (HomeFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, Config.HomeGroupId);
         }else {
             mToastInstance.showLongToast("陌生人，请离开");
             return;
@@ -102,7 +106,7 @@ public class HomeDetectActivity extends BaseActivity<IHomeView, HomePresenter> i
             if (bmp != null) {
                 faceImg.setImageBitmap(bmp);
             }
-
+            greenDaoManager.updateDetectTime(returnUserId, returnUserName, dateTime, Config.HomeGroupId);
         }
 
         mToastInstance.showLongToast("欢迎回家");

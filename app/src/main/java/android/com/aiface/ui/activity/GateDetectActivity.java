@@ -1,13 +1,16 @@
 package android.com.aiface.ui.activity;
 
 import android.com.aiface.R;
+import android.com.aiface.baidu.Config;
 import android.com.aiface.baidu.utils.ImageSaveUtil;
 import android.com.aiface.database.bean.GateFace;
 import android.com.aiface.ui.base.BaseActivity;
 import android.com.aiface.ui.presenter.GatePresenter;
 import android.com.aiface.ui.view.IGateView;
+import android.com.aiface.utils.DateTime;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +33,7 @@ public class GateDetectActivity extends BaseActivity<IGateView, GatePresenter> i
 
     private GateFace mGateFace;
     private List<GateFace> gateFaceList = new ArrayList<>();
+    private DateTime mDateTime = DateTime.getDTInstance();
 
 
     private String returnUserId;
@@ -70,9 +74,10 @@ public class GateDetectActivity extends BaseActivity<IGateView, GatePresenter> i
             returnUserId = intent.getStringExtra("uid");
             returnUserName = intent.getStringExtra("user_info");
         }
+        String dateTime = mDateTime.convertTimeToString(mDateTime.getSystemTime());
 
         if((returnUserId != null) && (returnUserName != null)) {
-            mGateFace = (GateFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, "Gate");
+            mGateFace = (GateFace) greenDaoManager.queryFaceByIdName(returnUserId, returnUserName, Config.GateGroupId);
         }else {
             mToastInstance.showLongToast("请先注册个人信息");
             return;
@@ -89,6 +94,8 @@ public class GateDetectActivity extends BaseActivity<IGateView, GatePresenter> i
             }
 
             mToastInstance.showLongToast("安全通过");
+
+            greenDaoManager.updateDetectTime(returnUserId, returnUserName, dateTime, Config.GateGroupId);
         }
     }
 
