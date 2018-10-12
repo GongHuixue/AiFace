@@ -57,18 +57,20 @@ public class DateTime {
         if(datetime != null) {
             date = timeStringToDate(datetime, "yyyy-MM-dd");
 
-            SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-            tempDate = new Date(System.currentTimeMillis());
-            nowDateString = formater.format(tempDate);
-            nowDate = timeStringToDate(nowDateString, "yyyy-MM-dd");
+            if(date != null) {
+                SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+                tempDate = new Date(System.currentTimeMillis());
+                nowDateString = formater.format(tempDate);
+                nowDate = timeStringToDate(nowDateString, "yyyy-MM-dd");
 
-            Log.d(TAG, "date compare = " + date.compareTo(nowDate));
-            if(date.compareTo(nowDate) == 0) {
-                sameDay = true;
-            }else {
-                sameDay = false;
+                Log.d(TAG, "date compare = " + date.compareTo(nowDate));
+                if (date.compareTo(nowDate) == 0) {
+                    sameDay = true;
+                } else {
+                    sameDay = false;
+                }
+                Log.d(TAG, "is The Same Day" + sameDay);
             }
-            Log.d(TAG, "is The Same Day" + sameDay);
         }
         return sameDay;
     }
@@ -76,10 +78,12 @@ public class DateTime {
     private Date timeStringToDate(String time, String format) {
         SimpleDateFormat formater = new SimpleDateFormat(format);
         Date date = null;
-        try{
-            date = formater.parse(time);
-        }catch (Exception e) {
-            e.printStackTrace();
+        if(time != null) {
+            try {
+                date = formater.parse(time);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return date;
     }

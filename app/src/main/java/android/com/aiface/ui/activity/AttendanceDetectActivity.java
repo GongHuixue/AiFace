@@ -142,27 +142,18 @@ public class AttendanceDetectActivity extends BaseActivity<IAttendanceView, Atte
                 etOnWorkTime.setText(mAttendanceFace.getOnworktime());
                 etOffWorkTime.setText(dateTime);
             }else if((mAttendanceFace.getOnworktime() != null) && (mAttendanceFace.getOffworktime() != null)) {//offwork, and need judge whether the same day
-                if(mDateTime.isTheSameDay(mAttendanceFace.getOffworktime())) {
+                if(mDateTime.isTheSameDay(mAttendanceFace.getOnworktime()) || mDateTime.isTheSameDay(mAttendanceFace.getOffworktime())) {
                     //the same day
                     mToastInstance.showShortToast("你已经下班啦");
                     etOnWorkTime.setText(mAttendanceFace.getOnworktime());
                     etOffWorkTime.setText(mAttendanceFace.getOffworktime());
-
-//                    Log.d(TAG, "mAttendanceFace on = " + mAttendanceFace.getOnworktime() + ", off = " + mAttendanceFace.getOffworktime());
-//                    AttendanceFace attendanceFace = new AttendanceFace();
-//                    attendanceFace.setAttendanceName(mAttendanceFace.getAttendanceName());
-//                    attendanceFace.setAttendancePart(mAttendanceFace.getAttendancePart());
-//                    attendanceFace.setUserId(returnUserId);
-//                    attendanceFace.setOnworktime("2018-10-08 12:00");
-//                    attendanceFace.setOffworktime("2018-10-08 17:00");
-//                    greenDaoManager.insertFaceData(attendanceFace);
                 } else {
                     mAttendanceFace.setAttendanceName(mAttendanceFace.getAttendanceName());
                     mAttendanceFace.setAttendancePart(mAttendanceFace.getAttendancePart());
                     mAttendanceFace.setUserId(mAttendanceFace.getUserId());
                     /*need change on/off work time in mAttendanceFace*/
                     mAttendanceFace.setOnworktime(dateTime);
-                    mAttendanceFace.setOffworktime("");
+                    mAttendanceFace.setOffworktime(null);
                     etOnWorkTime.setText(dateTime);
                     etOffWorkTime.setText("");
                     Log.d(TAG, "insert new data");
