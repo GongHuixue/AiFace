@@ -6,9 +6,10 @@
 * 3 个人中心：可以查询到注册会议的所有记录，参会人员的签到情况；员工的上下班时间；家里的访客记录等，以表格的形式呈现
 
 [AiFace下载地址](https://github.com/GongHuixue/AiFace/tree/master/app/release)
+    
+  ![HOME](https://github.com/GongHuixue/AiFace/tree/master/demoImg/home.png)      
+  ![个人中心](https://github.com/GongHuixue/AiFace/tree/master/demoImg/me.png)      
+  ![考勤注册](https://github.com/GongHuixue/AiFace/tree/master/demoImg/attendance_reg.png)      
+  ![人脸检测界面](https://github.com/GongHuixue/AiFace/tree/master/demoImg/detect.png)        
+  ![考勤记录](https://github.com/GongHuixue/AiFace/tree/master/demoImg/attendanceResult.png)      
 
-![HOME](https://github.com/GongHuixue/AiFace/tree/master/demoImg/home.png)  
-![个人中心](https://github.com/GongHuixue/AiFace/tree/master/demoImg/me.png)  
-![考勤注册](https://github.com/GongHuixue/AiFace/tree/master/demoImg/attendance_reg.png)  
-![人脸检测界面](https://github.com/GongHuixue/AiFace/tree/master/demoImg/detect.png)  
-![考勤记录](https://github.com/GongHuixue/AiFace/tree/master/demoImg/attendanceResult.png)  
